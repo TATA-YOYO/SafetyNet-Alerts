@@ -3,6 +3,8 @@ package com.safetynet.alerts.repository;
 import com.safetynet.alerts.models.FireStation;
 import com.safetynet.alerts.models.MedicalRecord;
 import com.safetynet.alerts.models.Person;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -18,6 +20,7 @@ import java.util.List;
 
 @Component
 public class JsonLoader implements CommandLineRunner {
+    private static final Logger logger = LogManager.getLogger("JsonLoader");
 
     private JSONObject data;
 
@@ -35,6 +38,7 @@ public class JsonLoader implements CommandLineRunner {
         try {
             data = (JSONObject) new JSONParser().parse(new FileReader("C:\\Users\\Marc-black\\data.json"));
         } catch (IOException e) {
+            logger.error("Data file cannot be read");
             e.printStackTrace();
         }
         //Load all Persons
@@ -84,6 +88,6 @@ public class JsonLoader implements CommandLineRunner {
             medicalRecord.setAllergies(allergies);
             medicalRecordRepository.getMedicalRecordList().add(medicalRecord);
         }
-        System.out.println("wait!");
+        logger.debug("All data are loaded");
     }
 }
