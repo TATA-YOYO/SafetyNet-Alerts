@@ -1,5 +1,7 @@
 package com.safetynet.alerts.models;
 
+import com.safetynet.alerts.controller.dto.PersonDto;
+
 import java.util.Date;
 import java.util.List;
 
@@ -14,6 +16,15 @@ public class Person {
     private Date birthdate;
     private List<String> medications;
     private List<String> allergies;
+
+    public PersonDto getPersonToShare(){
+        PersonDto personDto = new PersonDto();
+        personDto.setFirstName(firstName);
+        personDto.setLastName(lastName);
+        personDto.setAddress(address);
+        personDto.setPhone(phone);
+        return personDto;
+    }
 
     @Override
     public String toString() {

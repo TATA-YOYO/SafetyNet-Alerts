@@ -1,17 +1,21 @@
 package com.safetynet.alerts.models;
 
-import org.springframework.stereotype.Repository;
+import com.safetynet.alerts.constants.Time;
 
 import java.util.Date;
 import java.util.List;
 
-@Repository
 public class MedicalRecord {
     private String firstName;
     private String lastName;
     private Date birthdate;
     private List<String> medications;
     private List<String> allergies;
+
+    public double getAge() {
+        double age = (new Date().getTime() - birthdate.getTime()) / (Time.MILLISECOND_PER_DAY * Time.DAYS_IN_YEAR);
+        return age;
+    }
 
     public String getFirstName() {
         return firstName;

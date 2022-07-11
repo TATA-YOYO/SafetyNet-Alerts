@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class MedicalRecordRepository {
+public class MedicalRecordRepository implements IMedicalRecordRepository {
     List<MedicalRecord> medicalRecordList = new ArrayList<>();
 
     @Override
@@ -17,6 +17,7 @@ public class MedicalRecordRepository {
                 '}';
     }
 
+    @Override
     public List<MedicalRecord> getMedicalRecordList() {
         return medicalRecordList;
     }
