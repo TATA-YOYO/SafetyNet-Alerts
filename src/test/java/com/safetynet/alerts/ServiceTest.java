@@ -11,22 +11,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
 public class ServiceTest {
-    private List<String> addressList = new ArrayList<>();
+
+    private final List<String> addressList = new ArrayList<>();
+
     @Autowired
     private ServiceAPI serviceAPI;
 
     @BeforeEach
-    public void setings() {
+    public void settings() {
         addressList.add("1509 Culver St");
         addressList.add("834 Binoc Ave");
         addressList.add("748 Townings Dr");
         addressList.add("112 Steppes Pl");
         addressList.add("748 Townings Dr");
-
 
 
     }
@@ -45,7 +46,12 @@ public class ServiceTest {
         //Act
         List<String> address = serviceAPI.getAddress(3);
         //Assert
-        assertTrue(address.equals(addressList));
+        assertEquals(address, addressList);
     }
 
+    @Test
+    void getMedicalRecordList() {
+        //Assert
+        assertNotNull(serviceAPI.getMedicalRecordList());
+    }
 }

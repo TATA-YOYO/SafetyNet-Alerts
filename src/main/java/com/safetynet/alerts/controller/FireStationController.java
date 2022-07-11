@@ -19,19 +19,22 @@ public class FireStationController {
 
     @GetMapping("/firestation")
     public PersonListWithChildNumberDto getPersonToShareObject(final Integer stationNumber) {
-        List<PersonDto> personDtoList = serviceAPI.getPersonToShareList(serviceAPI.getAddress(stationNumber));
-        nbAdult = 0;
-        nbChild = 0;
-        for (PersonDto personDto : personDtoList) {
-            for (MedicalRecord m : serviceAPI.getMedicalRecordList()) {
-                if (m.getFirstName().equals(personDto.getFirstName()) && m.getLastName().equals(personDto.getLastName())) {
-                    if (m.getAge() >= 18) {
-                        nbAdult++;
-                    } else if (m.getAge() < 18) nbChild++;
-                    break;
+        if (stationNumber != null) {
+            List<PersonDto> personDtoList = serviceAPI.getPersonToShareList(serviceAPI.getAddress(stationNumber));
+            nbAdult = 0;
+            nbChild = 0;
+            for (PersonDto personDto : personDtoList) {
+                for (MedicalRecord m : serviceAPI.getMedicalRecordList()) {
+                    if (m.getFirstName().equals(personDto.getFirstName()) && m.getLastName().equals(personDto.getLastName())) {
+                        if (m.getAge() >= 18) {
+                            nbAdult++;
+                        } else if (m.getAge() < 18) nbChild++;
+                        break;
+                    }
                 }
             }
+            return new PersonListWithChildNumberDto(personDtoList, nbAdult, nbChild);
         }
-        return new PersonListWithChildNumberDto(personDtoList, nbAdult, nbChild);
+        return null;
     }
 }
