@@ -17,11 +17,14 @@ public class PersonRepository implements IPersonRepository {
     }
 
     @Override
-    public List<PersonDto> getPersonToShareList(String address) {
+    public List<PersonDto> getPersonToShareList(List<String> addressList) {
         List<PersonDto> personDtoList = new ArrayList<>();
-        for (Person p : personList) {
-            if (p.getAddress().equals(address)) {
-                personDtoList.add(p.getPersonToShare());
+        for (String address : addressList) {
+            for (Person p : personList) {
+                if (p.getAddress().equals(address)) {
+                    personDtoList.add(p.getPersonToShare());
+
+                }
             }
         }
         return personDtoList;

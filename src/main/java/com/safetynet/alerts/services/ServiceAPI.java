@@ -23,12 +23,12 @@ public class ServiceAPI implements IServiceAPI {
     private IMedicalRecordRepository medicalRecordRepository;
 
     @Override
-    public List<PersonDto> getPersonToShareList(String address) {
-        return personRepository.getPersonToShareList(address);
+    public List<PersonDto> getPersonToShareList(List<String> addressList) {
+        return personRepository.getPersonToShareList(addressList);
     }
 
     @Override
-    public String getAddress(int stationNumber) {
+    public List<String> getAddress(int stationNumber) {
         return fireStationRepository.getAddress(stationNumber);
     }
 

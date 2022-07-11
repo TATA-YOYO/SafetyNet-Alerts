@@ -6,9 +6,9 @@ import com.safetynet.alerts.models.MedicalRecord;
 import java.util.List;
 
 public interface IServiceAPI {
-    public List<PersonDto> getPersonToShareList(String address);
+    public List<PersonDto> getPersonToShareList(List<String> addressList);
 
-    public String getAddress(int stationNumber);
+    public List<String> getAddress(int stationNumber);
 
     public List<MedicalRecord> getMedicalRecordList();
 

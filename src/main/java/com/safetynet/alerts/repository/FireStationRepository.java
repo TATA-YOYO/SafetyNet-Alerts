@@ -16,14 +16,13 @@ public class FireStationRepository implements IFireStationRepository {
     }
 
     @Override
-    public String getAddress(int nbStation) {
-        String address = null;
+    public List<String> getAddress(int nbStation) {
+        List<String> stringList= new ArrayList<>();
         for (FireStation f : fireStationList) {
             if (f.getStation() == nbStation) {
-                address = f.getAddress();
-                break;
+               stringList.add(f.getAddress());
             }
         }
-        return address;
+        return stringList;
     }
 }

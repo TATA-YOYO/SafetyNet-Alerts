@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -18,12 +19,16 @@ public class ServiceTest {
 
     @Test
     void getPersonToShareList() {
+        //ARRANGE
+        List<String> addressList = new ArrayList<>();
+        addressList.add("834 Binoc Ave");
+        addressList.add("748 Townings Dr");
+        addressList.add("112 Steppes Pl");
+        addressList.add("1509 Culver St");
         //Act
-        List<PersonDto> personList = serviceAPI.getPersonToShareList("1509 Culver St");
-        int sizeList = personList.size();
-
+List<PersonDto> personDtoList = serviceAPI.getPersonToShareList(addressList);
         //Assert
-        assertEquals(5, sizeList);
+        assertEquals(11,personDtoList.size() );
     }
 
 }

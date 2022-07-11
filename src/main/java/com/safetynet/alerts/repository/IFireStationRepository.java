@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface IFireStationRepository {
     public List<FireStation> getList();
-    public String getAddress(int nbStation);
+    public List<String> getAddress(int nbStation);
 }
