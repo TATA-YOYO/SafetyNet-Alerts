@@ -1,6 +1,6 @@
 package com.safetynet.alerts;
 
-import com.safetynet.alerts.controller.dto.PersonDto;
+import com.safetynet.alerts.controller.dto.PersonDtoWithAddressAndPhone;
 import com.safetynet.alerts.services.ServiceAPI;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -36,9 +36,9 @@ public class ServiceTest {
     @Test
     void getPersonToShareList() {
         //Act
-        List<PersonDto> personDtoList = serviceAPI.getPersonToShareList(addressList);
+        List<PersonDtoWithAddressAndPhone> personWithAddressAndPhoneDtoList = serviceAPI.getPersonDtoWithAddressAndPhoneList(addressList);
         //Assert
-        assertEquals(13, personDtoList.size());
+        assertEquals(13, personWithAddressAndPhoneDtoList.size());
     }
 
     @Test

@@ -3,8 +3,12 @@ package com.safetynet.alerts.controller.dto;
 public class PersonDto {
     private String firstName;
     private String lastName;
-    private String address;
-    private String phone;
+
+    public PersonDto(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+    public PersonDto(){}
 
     public String getFirstName() {
         return firstName;
@@ -20,21 +24,5 @@ public class PersonDto {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
     }
 }

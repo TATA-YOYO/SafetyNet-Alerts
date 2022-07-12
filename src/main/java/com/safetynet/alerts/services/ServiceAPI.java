@@ -1,6 +1,6 @@
 package com.safetynet.alerts.services;
 
-import com.safetynet.alerts.controller.dto.PersonDto;
+import com.safetynet.alerts.controller.dto.PersonDtoWithAddressAndPhone;
 import com.safetynet.alerts.models.MedicalRecord;
 import com.safetynet.alerts.repository.IFireStationRepository;
 import com.safetynet.alerts.repository.IMedicalRecordRepository;
@@ -23,8 +23,13 @@ public class ServiceAPI implements IServiceAPI {
     private IMedicalRecordRepository medicalRecordRepository;
 
     @Override
-    public List<PersonDto> getPersonToShareList(List<String> addressList) {
-        return personRepository.getPersonToShareList(addressList);
+    public List<PersonDtoWithAddressAndPhone> getPersonDtoWithAddressAndPhoneList(List<String> addressList) {
+        return personRepository.getPersonDtoWithAddressAndPhoneList(addressList);
+    }
+
+    @Override
+    public List<PersonDtoWithAddressAndPhone> getPersonDtoWithAddressAndPhoneList(String address) {
+        return personRepository.getPersonDtoWithAddressAndPhoneList(address);
     }
 
     @Override

@@ -26,4 +26,9 @@ public class FireStationControllerTest {
         //Assert
         mockMvc.perform(get("/firestation")).andExpect(status().isOk());
     }
+
+    @Test
+    void getPersonDtoWithAgeAndOtherMemberTest() throws Exception {
+        mockMvc.perform(get("/childAlert")).andExpect(status().isOk());
+    }
 }

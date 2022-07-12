@@ -1,6 +1,6 @@
 package com.safetynet.alerts.models;
 
-import com.safetynet.alerts.controller.dto.PersonDto;
+import com.safetynet.alerts.controller.dto.PersonDtoWithAddressAndPhone;
 
 import java.util.Date;
 import java.util.List;
@@ -17,13 +17,13 @@ public class Person {
     private List<String> medications;
     private List<String> allergies;
 
-    public PersonDto getPersonToShare(){
-        PersonDto personDto = new PersonDto();
-        personDto.setFirstName(firstName);
-        personDto.setLastName(lastName);
-        personDto.setAddress(address);
-        personDto.setPhone(phone);
-        return personDto;
+    public PersonDtoWithAddressAndPhone getPersonDtoWithAddressAndPhone(){
+        PersonDtoWithAddressAndPhone personWithAdressandPhoneDto = new PersonDtoWithAddressAndPhone();
+        personWithAdressandPhoneDto.setFirstName(firstName);
+        personWithAdressandPhoneDto.setLastName(lastName);
+        personWithAdressandPhoneDto.setAddress(address);
+        personWithAdressandPhoneDto.setPhone(phone);
+        return personWithAdressandPhoneDto;
     }
 
     @Override
