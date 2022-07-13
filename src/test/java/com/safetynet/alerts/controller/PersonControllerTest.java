@@ -7,6 +7,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 @SpringBootTest
 public class PersonControllerTest {
@@ -16,6 +18,10 @@ public class PersonControllerTest {
 
     @Test
     void getPersonDtoWithAgeAndOtherMemberTest() {
+        //Act
         List<PersonDtoWithAgeAndOtherMember> personDtoWithAgeAndOtherMemberList = personController.getPersonDtoWithAgeAndOtherMember("1509 Culver St");
+
+        //Assert
+        assertEquals(2,personDtoWithAgeAndOtherMemberList.size());
     }
 }

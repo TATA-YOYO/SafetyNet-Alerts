@@ -1,7 +1,6 @@
 package com.safetynet.alerts.services;
 
 import com.safetynet.alerts.controller.dto.PersonDtoWithAddressAndPhone;
-import com.safetynet.alerts.services.ServiceAPI;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
