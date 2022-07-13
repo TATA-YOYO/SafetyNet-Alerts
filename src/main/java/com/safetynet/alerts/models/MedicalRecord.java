@@ -12,9 +12,8 @@ public class MedicalRecord {
     private List<String> medications;
     private List<String> allergies;
 
-    public double getAge() {
-        double age = (new Date().getTime() - birthdate.getTime()) / (Time.MILLISECOND_PER_DAY * Time.DAYS_IN_YEAR);
-        return age;
+    public int getAge() {
+        return (int) ((new Date().getTime() - birthdate.getTime()) / (Time.MILLISECOND_PER_DAY * Time.DAYS_IN_YEAR));
     }
 
     public String getFirstName() {

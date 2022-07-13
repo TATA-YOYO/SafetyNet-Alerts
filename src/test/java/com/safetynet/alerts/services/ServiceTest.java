@@ -1,4 +1,4 @@
-package com.safetynet.alerts;
+package com.safetynet.alerts.services;
 
 import com.safetynet.alerts.controller.dto.PersonDtoWithAddressAndPhone;
 import com.safetynet.alerts.services.ServiceAPI;
@@ -28,8 +28,6 @@ public class ServiceTest {
         addressList.add("748 Townings Dr");
         addressList.add("112 Steppes Pl");
         addressList.add("748 Townings Dr");
-
-
     }
 
 

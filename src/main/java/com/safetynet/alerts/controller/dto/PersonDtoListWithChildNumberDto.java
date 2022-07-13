@@ -8,12 +8,14 @@ public class PersonDtoListWithChildNumberDto {
     private int nbChild;
 
 
-
     public PersonDtoListWithChildNumberDto(List<PersonDtoWithAddressAndPhone> personWithAddressAndPhoneDtoList, int nbAdult, int nbChild) {
         this.personWithAddressAndPhoneDtoList = personWithAddressAndPhoneDtoList;
         this.nbAdult = nbAdult;
         this.nbChild = nbChild;
     }
+
+    public PersonDtoListWithChildNumberDto(){}
+
     public List<PersonDtoWithAddressAndPhone> getPersonDtoList() {
         return personWithAddressAndPhoneDtoList;
     }

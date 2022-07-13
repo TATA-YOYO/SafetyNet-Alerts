@@ -19,7 +19,11 @@ public class PersonDtoWithAddressAndPhone extends PersonDto {
     public void setPhone(String phone) {
         this.phone = phone;
     }
-    public PersonDto getPersonDto(){
-        return new PersonDto(super.getFirstName(),super.getLastName());
+
+    public PersonDto getPersonDto(boolean haveTheRight) {
+        if (haveTheRight) {
+            return new PersonDto(super.getFirstName(), super.getLastName());
+        }
+        return new PersonDto();
     }
 }

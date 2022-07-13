@@ -5,16 +5,16 @@ import java.util.List;
 public class PersonDtoWithAgeAndOtherMember extends PersonDto {
 
 
-    private double Age;
+    private int Age;
     private List<PersonDto> otherMembers;
 
-    public PersonDtoWithAgeAndOtherMember(String firstName, String lastName, double age,List<PersonDto> otherMembers) {
+    public PersonDtoWithAgeAndOtherMember(String firstName, String lastName, int age,List<PersonDto> otherMembers) {
         super(firstName, lastName);
         Age = age;
         this.otherMembers= otherMembers;
     }
 
-    public double getAge() {
+    public int getAge() {
         return Age;
     }
 
