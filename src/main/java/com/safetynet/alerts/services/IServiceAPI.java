@@ -14,4 +14,6 @@ public interface IServiceAPI {
 
     public List<MedicalRecord> getMedicalRecordList();
 
+    int getStationNumber(String address);
+
 }

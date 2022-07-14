@@ -11,6 +11,7 @@ public class MedicalRecord {
     private Date birthdate;
     private List<String> medications;
     private List<String> allergies;
+    private String firstNameAndLastName;
 
     public int getAge() {
         return (int) ((new Date().getTime() - birthdate.getTime()) / (Time.MILLISECOND_PER_DAY * Time.DAYS_IN_YEAR));
@@ -54,5 +55,15 @@ public class MedicalRecord {
 
     public void setAllergies(List<String> allergies) {
         this.allergies = allergies;
+    }
+
+    public String getFirstNameAndLastName() {
+        return firstNameAndLastName;
+    }
+
+    public void concatenate() {
+        if (firstName != null && lastName != null) {
+            firstNameAndLastName = firstName + lastName;
+        }
     }
 }

@@ -9,6 +9,7 @@ import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,9 +29,10 @@ public class MedicalLoader implements IMedicalLoader {
             MedicalRecord medicalRecord = new MedicalRecord();
             medicalRecord.setFirstName((String) medicalRecordJSON.get("firstName"));
             medicalRecord.setLastName((String) medicalRecordJSON.get("lastName"));
+            medicalRecord.concatenate();
             try {
                 medicalRecord.setBirthdate(new SimpleDateFormat("dd/MM/yyyy").parse((String) medicalRecordJSON.get("birthdate")));
-            } catch (java.text.ParseException e) {
+            } catch (ParseException e) {
                 e.printStackTrace();
             }
             List<String> medications = new ArrayList<>();
@@ -44,7 +46,7 @@ public class MedicalLoader implements IMedicalLoader {
             JSONArray allergiesArray = (JSONArray) medicalRecordJSON.get("allergies");
             for (Object I : allergiesArray) {
                 String alrg = (String) I;
-                medications.add(alrg);
+                allergies.add(alrg);
             }
             medicalRecord.setAllergies(allergies);
             medicalRecordRepository.getMedicalRecordList().add(medicalRecord);

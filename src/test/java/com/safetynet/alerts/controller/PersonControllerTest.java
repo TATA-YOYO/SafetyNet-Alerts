@@ -1,5 +1,6 @@
 package com.safetynet.alerts.controller;
 
+import com.safetynet.alerts.controller.dto.ListOfPersonAndTheirNumberStation;
 import com.safetynet.alerts.controller.dto.PersonDtoWithAgeAndOtherMember;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,5 +24,13 @@ public class PersonControllerTest {
 
         //Assert
         assertEquals(2,personDtoWithAgeAndOtherMemberList.size());
+    }
+    @Test
+    void getListOfPersonAndTheirNumberStationTest(){
+        //Act
+        ListOfPersonAndTheirNumberStation listOfPersonAndTheirNumberStation = personController.getListOfPersonAndTheirNumberStation("1509 Culver St");
+
+        //Assert
+        assertEquals(3,listOfPersonAndTheirNumberStation.getStation());
     }
 }

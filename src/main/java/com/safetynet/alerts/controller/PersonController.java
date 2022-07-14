@@ -1,8 +1,6 @@
 package com.safetynet.alerts.controller;
 
-import com.safetynet.alerts.controller.dto.PersonDto;
-import com.safetynet.alerts.controller.dto.PersonDtoWithAddressAndPhone;
-import com.safetynet.alerts.controller.dto.PersonDtoWithAgeAndOtherMember;
+import com.safetynet.alerts.controller.dto.*;
 import com.safetynet.alerts.models.MedicalRecord;
 import com.safetynet.alerts.services.IServiceAPI;
 import org.apache.logging.log4j.LogManager;
@@ -50,5 +48,26 @@ public class PersonController {
         }
         logger.info("Result " + personDtoWithAgeAndOtherMemberList);
         return personDtoWithAgeAndOtherMemberList;
+    }
+
+    @GetMapping("/fire")
+    public ListOfPersonAndTheirNumberStation getListOfPersonAndTheirNumberStation(final String address) {
+        List<PersonWithLastNameAndPhoneDto> personWithLastNameAndPhoneDtoList = new ArrayList<>();
+        for (PersonDtoWithAddressAndPhone personDtoWithAddressAndPhone : serviceAPI.getPersonDtoWithAddressAndPhoneList(address)) {
+            for (MedicalRecord medicalRecord : serviceAPI.getMedicalRecordList()) {
+                String firstNameAndLastName = personDtoWithAddressAndPhone.getFirstName() + personDtoWithAddressAndPhone.getLastName();
+                if (medicalRecord.getFirstNameAndLastName().equals(firstNameAndLastName)) {
+                    PersonWithLastNameAndPhoneDto personWithLastNameAndPhoneDto = new PersonWithLastNameAndPhoneDto
+                            (personDtoWithAddressAndPhone.getLastName(), personDtoWithAddressAndPhone.getPhone(),
+                                    medicalRecord.getAge(), medicalRecord.getMedications(), medicalRecord.getAllergies());
+                    personWithLastNameAndPhoneDtoList.add(personWithLastNameAndPhoneDto);
+                    break;
+                }
+            }
+        }
+        if (serviceAPI.getStationNumber(address) == 0) {
+            return new ListOfPersonAndTheirNumberStation(personWithLastNameAndPhoneDtoList);
+        }
+        return new ListOfPersonAndTheirNumberStation(personWithLastNameAndPhoneDtoList, serviceAPI.getStationNumber(address));
     }
 }

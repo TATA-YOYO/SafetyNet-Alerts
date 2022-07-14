@@ -89,4 +89,19 @@ public class ServiceAPI implements IServiceAPI {
         }
         return medicalRecordRepository.getMedicalRecordList();
     }
+
+    @Override
+    public int getStationNumber(String address) {
+        if (dataIsLoaded) {
+            return fireStationRepository.getStationNumber(address);
+        }
+        try {
+            dataLoader.load();
+            dataIsLoaded = true;
+        } catch (Exception e) {
+            logger.error("All Data are not loaded");
+            e.printStackTrace();
+        }
+        return fireStationRepository.getStationNumber(address);
+    }
 }

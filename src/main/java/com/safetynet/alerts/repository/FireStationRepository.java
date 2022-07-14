@@ -25,4 +25,14 @@ public class FireStationRepository implements IFireStationRepository {
         }
         return stringList;
     }
+
+    @Override
+    public int getStationNumber(String address) {
+        for (FireStation f : fireStationList) {
+            if (address.equals(f.getAddress())){
+                return f.getStation();
+            }
+        }
+        return 0;
+    }
 }
