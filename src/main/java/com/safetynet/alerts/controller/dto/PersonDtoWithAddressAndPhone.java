@@ -20,8 +20,8 @@ public class PersonDtoWithAddressAndPhone extends PersonDto {
         this.phone = phone;
     }
 
-    public PersonDto getPersonDto(boolean haveTheRight) {
-        if (haveTheRight) {
+    public PersonDto getPersonDto(boolean hasTheRight) {
+        if (hasTheRight) {
             return new PersonDto(super.getFirstName(), super.getLastName());
         }
         return new PersonDto();
