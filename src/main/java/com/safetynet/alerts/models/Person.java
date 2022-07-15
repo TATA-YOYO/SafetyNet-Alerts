@@ -26,22 +26,6 @@ public class Person {
         return personWithAdressandPhoneDto;
     }
 
-    @Override
-    public String toString() {
-        return "Person{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", address='" + address + '\'' +
-                ", city='" + city + '\'' +
-                ", zip='" + zip + '\'' +
-                ", phone='" + phone + '\'' +
-                ", email='" + email + '\'' +
-                ", birthdate=" + birthdate +
-                ", medications=" + medications +
-                ", allergies=" + allergies +
-                '}';
-    }
-
     public List<String> getMedications() {
         return medications;
     }

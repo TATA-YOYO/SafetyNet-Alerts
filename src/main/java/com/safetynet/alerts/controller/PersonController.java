@@ -65,9 +65,6 @@ public class PersonController {
                 }
             }
         }
-        if (serviceAPI.getStationNumber(address) == 0) {
-            return new ListOfPersonAndTheirNumberStation(personWithLastNameAndPhoneDtoList);
-        }
         return new ListOfPersonAndTheirNumberStation(personWithLastNameAndPhoneDtoList, serviceAPI.getStationNumber(address));
     }
 }
