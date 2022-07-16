@@ -2,6 +2,7 @@ package com.safetynet.alerts.services;
 
 import com.safetynet.alerts.controller.dto.PersonDtoWithAddressAndPhone;
 import com.safetynet.alerts.models.MedicalRecord;
+import com.safetynet.alerts.models.Person;
 import com.safetynet.alerts.repository.IDataLoader;
 import com.safetynet.alerts.repository.IFireStationRepository;
 import com.safetynet.alerts.repository.IMedicalRecordRepository;
@@ -103,5 +104,21 @@ public class ServiceAPI implements IServiceAPI {
             e.printStackTrace();
         }
         return fireStationRepository.getStationNumber(address);
+    }
+
+    @Override
+    public Person getPerson(String firstNameAndLastName) {
+        if (dataIsLoaded) {
+            return personRepository.getPerson(firstNameAndLastName);
+        }
+        try {
+            dataLoader.load();
+            dataIsLoaded = true;
+        } catch (Exception e) {
+            logger.error("All Data are not loaded");
+            e.printStackTrace();
+        }
+
+        return personRepository.getPerson(firstNameAndLastName);
     }
 }

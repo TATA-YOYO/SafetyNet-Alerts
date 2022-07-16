@@ -10,12 +10,6 @@ import java.util.List;
 public class MedicalRecordRepository implements IMedicalRecordRepository {
     List<MedicalRecord> medicalRecordList = new ArrayList<>();
 
-    @Override
-    public String toString() {
-        return "MedicalRecordRepository{" +
-                "medicalRecordList=" + medicalRecordList +
-                '}';
-    }
 
     @Override
     public List<MedicalRecord> getMedicalRecordList() {

@@ -6,7 +6,12 @@ import com.safetynet.alerts.models.Person;
 import java.util.List;
 
 public interface IPersonRepository {
-    public List<Person> getPersonList();
-    public List<PersonDtoWithAddressAndPhone> getPersonDtoWithAddressAndPhoneList(List<String> addressList);
-    public List<PersonDtoWithAddressAndPhone> getPersonDtoWithAddressAndPhoneList(String address);
+    List<Person> getPersonList();
+
+    List<PersonDtoWithAddressAndPhone> getPersonDtoWithAddressAndPhoneList(List<String> addressList);
+
+    List<PersonDtoWithAddressAndPhone> getPersonDtoWithAddressAndPhoneList(String address);
+
+    Person getPerson(String firstNameAndLastName);
+
 }

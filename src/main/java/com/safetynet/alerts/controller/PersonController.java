@@ -2,6 +2,7 @@ package com.safetynet.alerts.controller;
 
 import com.safetynet.alerts.controller.dto.*;
 import com.safetynet.alerts.models.MedicalRecord;
+import com.safetynet.alerts.models.Person;
 import com.safetynet.alerts.services.IServiceAPI;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -66,5 +67,18 @@ public class PersonController {
             }
         }
         return new ListOfPersonAndTheirNumberStation(personWithLastNameAndPhoneDtoList, serviceAPI.getStationNumber(address));
+    }
+
+    @GetMapping("/personInfo")
+    public PersonWithAddressAgeEMail getPersonWithAddressAgeEMail(String firstName, String lastName) {
+        if (serviceAPI.getPerson(firstName + lastName) != null) {
+            Person person = serviceAPI.getPerson(firstName + lastName);
+            for (MedicalRecord medicalRecord : serviceAPI.getMedicalRecordList()) {
+                if (medicalRecord.getFirstNameAndLastName().equals(person.getFirstName()+person.getLastName())){
+                    return new PersonWithAddressAgeEMail(person.getLastName(), person.getAddress(), medicalRecord.getAge(), person.getEmail());
+                }
+            }
+        }
+        return new PersonWithAddressAgeEMail();
     }
 }

@@ -40,4 +40,16 @@ public class PersonRepository implements IPersonRepository {
         }
         return personWithAddressAndPhoneDtoList;
     }
+
+    @Override
+    public Person getPerson(String firstNameAndLastName) {
+
+        for (Person p : personList) {
+            if ((p.getFirstName() + p.getLastName()).equals(firstNameAndLastName)) {
+                return p;
+            }
+        }
+        return null;
+    }
+
 }
