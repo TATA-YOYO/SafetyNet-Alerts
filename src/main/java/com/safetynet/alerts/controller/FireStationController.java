@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,17 +44,24 @@ public class FireStationController {
     }
 
     @GetMapping("/phoneAlert")
-    public Map<String, Integer> getPhoneList(final Integer stationNumber) {
+    public List<String> getPhoneList(final Integer stationNumber) {
+        List<String> phoneList = new ArrayList<>();
         List<PersonDtoWithAddressAndPhone> personWithAddressAndPhoneDtoList = serviceAPI.getPersonDtoWithAddressAndPhoneList(serviceAPI.getAddressList(stationNumber));
         Map<String, Integer> phoneMap = new HashMap<>();
         for (PersonDtoWithAddressAndPhone personDtoWithAddressAndPhone : personWithAddressAndPhoneDtoList) {
             if (phoneMap.size() == 0) {
-                phoneMap.put(personDtoWithAddressAndPhone.getPhone(), 1);
-            } else if ((phoneMap.get(personDtoWithAddressAndPhone.getPhone()) == null) || phoneMap.get(personDtoWithAddressAndPhone.getPhone()) != 1) {
-                phoneMap.put(personDtoWithAddressAndPhone.getPhone(), 1);
+                phoneMap.put(personDtoWithAddressAndPhone.getPhone(), 0);
+            } else if ((phoneMap.get(personDtoWithAddressAndPhone.getPhone()) == null) || phoneMap.get(personDtoWithAddressAndPhone.getPhone()) != 0) {
+                phoneMap.put(personDtoWithAddressAndPhone.getPhone(), 0);
             }
         }
-        return phoneMap;
+        for (PersonDtoWithAddressAndPhone personDtoWithAddressAndPhone : personWithAddressAndPhoneDtoList){
+            if (phoneMap.get(personDtoWithAddressAndPhone.getPhone())!=2){
+                phoneList.add(personDtoWithAddressAndPhone.getPhone());
+                phoneMap.put(personDtoWithAddressAndPhone.getPhone(),2);
+            }
+        }
+        return phoneList;
     }
 
     @GetMapping("/flood/stations")

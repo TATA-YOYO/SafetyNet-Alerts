@@ -24,7 +24,7 @@ public class FireStationControllerTest {
 
     @Test
     public void getPhoneListTest() {
-        Map<String, Integer> resultList = fireStationController.getPhoneList(1);
+        List<String> resultList = fireStationController.getPhoneList(1);
 
         //Assert
         assertEquals(4, resultList.size());
