@@ -1,6 +1,7 @@
 package com.safetynet.alerts.integration;
 
 import com.safetynet.alerts.controller.FireStationController;
+import com.safetynet.alerts.controller.IPersonController;
 import com.safetynet.alerts.services.IServiceAPI;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,9 @@ public class EndpointIntegrationTest {
 
     @MockBean
     private IServiceAPI serviceAPI;
+
+    @MockBean
+    private IPersonController personController;
 
     @Test
     void getPersonToShareObjectTest()throws Exception{

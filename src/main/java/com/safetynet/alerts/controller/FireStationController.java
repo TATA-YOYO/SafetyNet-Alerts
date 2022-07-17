@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -63,7 +62,7 @@ public class FireStationController {
         for (int stationNumber : stationNumbersList) {
             String address = serviceAPI.getAddressList(stationNumber).get(0);
             List<PersonWithLastNameAndPhoneDto> personWithLastNameAndPhoneDtoList = personController.getListOfPersonAndTheirNumberStation(address).getPersonWithLastNameAndPhoneDtoList();
-            listOfPersonWithLastNameAndPhoneDtoMap.put(address,personWithLastNameAndPhoneDtoList);
+            listOfPersonWithLastNameAndPhoneDtoMap.put(address, personWithLastNameAndPhoneDtoList);
         }
         return listOfPersonWithLastNameAndPhoneDtoMap;
     }
