@@ -15,11 +15,12 @@ import java.util.List;
 import java.util.Objects;
 
 @RestController
-public class PersonController {
+public class PersonController implements IPersonController {
     private static final Logger logger = LogManager.getLogger("PersonController");
     @Autowired
     private IServiceAPI serviceAPI;
 
+    @Override
     @GetMapping("/childAlert")
     public List<PersonDtoWithAgeAndOtherMember> getPersonDtoWithAgeAndOtherMember(final String address) {
         List<PersonDtoWithAgeAndOtherMember> personDtoWithAgeAndOtherMemberList = new ArrayList<>();
@@ -51,6 +52,7 @@ public class PersonController {
         return personDtoWithAgeAndOtherMemberList;
     }
 
+    @Override
     @GetMapping("/fire")
     public ListOfPersonAndTheirNumberStation getListOfPersonAndTheirNumberStation(final String address) {
         List<PersonWithLastNameAndPhoneDto> personWithLastNameAndPhoneDtoList = new ArrayList<>();
@@ -69,12 +71,13 @@ public class PersonController {
         return new ListOfPersonAndTheirNumberStation(personWithLastNameAndPhoneDtoList, serviceAPI.getStationNumber(address));
     }
 
+    @Override
     @GetMapping("/personInfo")
     public PersonWithAddressAgeEMail getPersonWithAddressAgeEMail(String firstName, String lastName) {
         if (serviceAPI.getPerson(firstName + lastName) != null) {
             Person person = serviceAPI.getPerson(firstName + lastName);
             for (MedicalRecord medicalRecord : serviceAPI.getMedicalRecordList()) {
-                if (medicalRecord.getFirstNameAndLastName().equals(person.getFirstName()+person.getLastName())){
+                if (medicalRecord.getFirstNameAndLastName().equals(person.getFirstName() + person.getLastName())) {
                     return new PersonWithAddressAgeEMail(person.getLastName(), person.getAddress(), medicalRecord.getAge(), person.getEmail());
                 }
             }

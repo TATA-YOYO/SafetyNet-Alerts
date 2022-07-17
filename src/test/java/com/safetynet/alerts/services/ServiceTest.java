@@ -41,7 +41,7 @@ public class ServiceTest {
     @Test
     void getAddressTest() {
         //Act
-        List<String> address = serviceAPI.getAddress(3);
+        List<String> address = serviceAPI.getAddressList(3);
         //Assert
         assertEquals(address, addressList);
     }

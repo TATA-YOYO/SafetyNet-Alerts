@@ -2,12 +2,14 @@ package com.safetynet.alerts.controller;
 
 import com.safetynet.alerts.controller.dto.PersonDtoListWithChildNumberDto;
 import com.safetynet.alerts.controller.dto.PersonDtoWithAddressAndPhone;
+import com.safetynet.alerts.controller.dto.PersonWithLastNameAndPhoneDto;
 import com.safetynet.alerts.models.MedicalRecord;
 import com.safetynet.alerts.services.IServiceAPI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,10 +19,13 @@ public class FireStationController {
     @Autowired
     private IServiceAPI serviceAPI;
 
+    @Autowired
+    private IPersonController personController;
+
     @GetMapping("/firestation")
     public PersonDtoListWithChildNumberDto getPersonListWithChildNumberDto(final Integer stationNumber) {
         if (stationNumber != null) {
-            List<PersonDtoWithAddressAndPhone> personWithAddressAndPhoneDtoList = serviceAPI.getPersonDtoWithAddressAndPhoneList(serviceAPI.getAddress(stationNumber));
+            List<PersonDtoWithAddressAndPhone> personWithAddressAndPhoneDtoList = serviceAPI.getPersonDtoWithAddressAndPhoneList(serviceAPI.getAddressList(stationNumber));
             int nbAdult = 0;
             int nbChild = 0;
             for (PersonDtoWithAddressAndPhone personWithAddressAndPhoneDto : personWithAddressAndPhoneDtoList) {
@@ -40,15 +45,26 @@ public class FireStationController {
 
     @GetMapping("/phoneAlert")
     public Map<String, Integer> getPhoneList(final Integer stationNumber) {
-        List<PersonDtoWithAddressAndPhone> personWithAddressAndPhoneDtoList = serviceAPI.getPersonDtoWithAddressAndPhoneList(serviceAPI.getAddress(stationNumber));
+        List<PersonDtoWithAddressAndPhone> personWithAddressAndPhoneDtoList = serviceAPI.getPersonDtoWithAddressAndPhoneList(serviceAPI.getAddressList(stationNumber));
         Map<String, Integer> phoneMap = new HashMap<>();
         for (PersonDtoWithAddressAndPhone personDtoWithAddressAndPhone : personWithAddressAndPhoneDtoList) {
-            if (phoneMap.size()==0){
-                phoneMap.put(personDtoWithAddressAndPhone.getPhone(),1);
-            }else if ((phoneMap.get(personDtoWithAddressAndPhone.getPhone())==null) || phoneMap.get(personDtoWithAddressAndPhone.getPhone())!=1){
-                phoneMap.put(personDtoWithAddressAndPhone.getPhone(),1);
+            if (phoneMap.size() == 0) {
+                phoneMap.put(personDtoWithAddressAndPhone.getPhone(), 1);
+            } else if ((phoneMap.get(personDtoWithAddressAndPhone.getPhone()) == null) || phoneMap.get(personDtoWithAddressAndPhone.getPhone()) != 1) {
+                phoneMap.put(personDtoWithAddressAndPhone.getPhone(), 1);
             }
         }
         return phoneMap;
+    }
+
+    @GetMapping("/flood/stations")
+    public Map<String, List<PersonWithLastNameAndPhoneDto>> getStringListOfPersonWithLastNameAndPhoneDtoMap(List<Integer> stationNumbersList) {
+        Map<String, List<PersonWithLastNameAndPhoneDto>> listOfPersonWithLastNameAndPhoneDtoMap = new HashMap<>();
+        for (int stationNumber : stationNumbersList) {
+            String address = serviceAPI.getAddressList(stationNumber).get(0);
+            List<PersonWithLastNameAndPhoneDto> personWithLastNameAndPhoneDtoList = personController.getListOfPersonAndTheirNumberStation(address).getPersonWithLastNameAndPhoneDtoList();
+            listOfPersonWithLastNameAndPhoneDtoMap.put(address,personWithLastNameAndPhoneDtoList);
+        }
+        return listOfPersonWithLastNameAndPhoneDtoMap;
     }
 }

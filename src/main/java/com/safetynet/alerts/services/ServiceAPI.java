@@ -62,7 +62,7 @@ public class ServiceAPI implements IServiceAPI {
     }
 
     @Override
-    public List<String> getAddress(int stationNumber) {
+    public List<String> getAddressList(int stationNumber) {
         if (dataIsLoaded) {
             return fireStationRepository.getAddress(stationNumber);
         }

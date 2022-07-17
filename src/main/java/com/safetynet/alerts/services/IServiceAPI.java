@@ -11,7 +11,7 @@ public interface IServiceAPI {
 
     List<PersonDtoWithAddressAndPhone> getPersonDtoWithAddressAndPhoneList(String address);
 
-    List<String> getAddress(int stationNumber);
+    List<String> getAddressList(int stationNumber);
 
     List<MedicalRecord> getMedicalRecordList();
 
