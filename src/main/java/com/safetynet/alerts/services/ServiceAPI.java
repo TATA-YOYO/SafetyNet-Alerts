@@ -135,4 +135,19 @@ public class ServiceAPI implements IServiceAPI {
         }
         return personRepository.getEmailList(city);
     }
+
+    @Override
+    public boolean savePerson(Person person) {
+        if (dataIsLoaded) {
+            return personRepository.savePerson(person);
+        }
+        try {
+            dataLoader.load();
+            dataIsLoaded = true;
+        } catch (Exception e) {
+            logger.error("All Data are not loaded");
+            e.printStackTrace();
+        }
+        return personRepository.savePerson(person);
+    }
 }

@@ -1,5 +1,6 @@
 package com.safetynet.alerts.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.safetynet.alerts.controller.dto.PersonDtoWithAddressAndPhone;
 
 import java.util.Date;
@@ -13,41 +14,15 @@ public class Person {
     private String zip;
     private String phone;
     private String email;
-    private Date birthdate;
-    private List<String> medications;
-    private List<String> allergies;
 
-    public PersonDtoWithAddressAndPhone getPersonDtoWithAddressAndPhone(){
+    @JsonIgnore
+    public PersonDtoWithAddressAndPhone getPersonDtoWithAddressAndPhone() {
         PersonDtoWithAddressAndPhone personWithAdressandPhoneDto = new PersonDtoWithAddressAndPhone();
         personWithAdressandPhoneDto.setFirstName(firstName);
         personWithAdressandPhoneDto.setLastName(lastName);
         personWithAdressandPhoneDto.setAddress(address);
         personWithAdressandPhoneDto.setPhone(phone);
         return personWithAdressandPhoneDto;
-    }
-
-    public List<String> getMedications() {
-        return medications;
-    }
-
-    public void setMedications(List<String> medications) {
-        this.medications = medications;
-    }
-
-    public List<String> getAllergies() {
-        return allergies;
-    }
-
-    public void setAllergies(List<String> allergies) {
-        this.allergies = allergies;
-    }
-
-    public Date getBirthdate() {
-        return birthdate;
-    }
-
-    public void setBirthdate(Date birthdate) {
-        this.birthdate = birthdate;
     }
 
     public String getFirstName() {

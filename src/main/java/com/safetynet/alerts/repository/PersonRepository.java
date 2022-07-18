@@ -50,15 +50,32 @@ public class PersonRepository implements IPersonRepository {
         }
         return null;
     }
+
     @Override
-    public List<String> getEmailList(String city){
-        List<String> eMailList= new ArrayList<>();
-        for (Person person : personList){
-            if (person.getCity().equals(city)){
+    public List<String> getEmailList(String city) {
+        List<String> eMailList = new ArrayList<>();
+        for (Person person : personList) {
+            if (person.getCity().equals(city)) {
                 eMailList.add(person.getEmail());
             }
         }
         return eMailList;
+    }
+
+    @Override
+    public boolean savePerson(Person person) {
+        boolean isPresent = false;
+        for (Person p : personList) {
+            if ((p.getFirstName() + p.getLastName()).equals(person.getFirstName() + person.getLastName())) {
+                isPresent = true;
+                break;
+            }
+        }
+        if (!isPresent) {
+            personList.add(person);
+            return true;
+        }
+        return false;
     }
 
 }

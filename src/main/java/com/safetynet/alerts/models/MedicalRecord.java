@@ -1,5 +1,6 @@
 package com.safetynet.alerts.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.safetynet.alerts.constants.Time;
 
 import java.util.Date;
@@ -11,6 +12,8 @@ public class MedicalRecord {
     private Date birthdate;
     private List<String> medications;
     private List<String> allergies;
+
+    @JsonIgnore
     private String firstNameAndLastName;
 
     public int getAge() {
