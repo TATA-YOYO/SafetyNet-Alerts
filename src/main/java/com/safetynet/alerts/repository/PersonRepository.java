@@ -23,7 +23,6 @@ public class PersonRepository implements IPersonRepository {
             for (Person p : personList) {
                 if (p.getAddress().equals(address)) {
                     personWithAddressAndPhoneDtoList.add(p.getPersonDtoWithAddressAndPhone());
-
                 }
             }
         }
@@ -50,6 +49,16 @@ public class PersonRepository implements IPersonRepository {
             }
         }
         return null;
+    }
+    @Override
+    public List<String> getEmailList(String city){
+        List<String> eMailList= new ArrayList<>();
+        for (Person person : personList){
+            if (person.getCity().equals(city)){
+                eMailList.add(person.getEmail());
+            }
+        }
+        return eMailList;
     }
 
 }

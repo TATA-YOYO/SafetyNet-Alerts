@@ -118,7 +118,21 @@ public class ServiceAPI implements IServiceAPI {
             logger.error("All Data are not loaded");
             e.printStackTrace();
         }
-
         return personRepository.getPerson(firstNameAndLastName);
+    }
+
+    @Override
+    public List<String> getEmailList(String city) {
+        if (dataIsLoaded) {
+            return personRepository.getEmailList(city);
+        }
+        try {
+            dataLoader.load();
+            dataIsLoaded = true;
+        } catch (Exception e) {
+            logger.error("All Data are not loaded");
+            e.printStackTrace();
+        }
+        return personRepository.getEmailList(city);
     }
 }

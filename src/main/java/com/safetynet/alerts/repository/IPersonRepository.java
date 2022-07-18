@@ -14,4 +14,6 @@ public interface IPersonRepository {
 
     Person getPerson(String firstNameAndLastName);
 
+    List<String> getEmailList(String city);
+
 }

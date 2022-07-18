@@ -19,4 +19,6 @@ public interface IServiceAPI {
 
     Person getPerson(String firstNameAndLastName);
 
+    List<String> getEmailList(String city);
+
 }

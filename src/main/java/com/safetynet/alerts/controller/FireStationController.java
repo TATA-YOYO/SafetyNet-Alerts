@@ -74,4 +74,9 @@ public class FireStationController {
         }
         return listOfPersonWithLastNameAndPhoneDtoMap;
     }
+
+    @GetMapping("/communityEmail")
+    public List<String> getEmailList(String city){
+       return serviceAPI.getEmailList(city);
+    }
 }

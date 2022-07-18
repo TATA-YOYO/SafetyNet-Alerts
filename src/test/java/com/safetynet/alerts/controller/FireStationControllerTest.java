@@ -3,6 +3,7 @@ package com.safetynet.alerts.controller;
 
 import com.safetynet.alerts.controller.dto.PersonDtoListWithChildNumberDto;
 import com.safetynet.alerts.controller.dto.PersonWithLastNameAndPhoneDto;
+import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -54,5 +55,14 @@ public class FireStationControllerTest {
 
         //Assert
         assertNotNull(result);
+    }
+
+    @Test
+    public void getEmailListTest(){
+        //Act
+        List<String> result = fireStationController.getEmailList("Culver");
+
+        //Assert
+        assertEquals(23,result.size());
     }
 }
