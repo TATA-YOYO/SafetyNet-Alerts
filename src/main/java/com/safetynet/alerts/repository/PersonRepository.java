@@ -80,14 +80,25 @@ public class PersonRepository implements IPersonRepository {
 
     @Override
     public boolean updatePerson(Person person) {
-       for (int i = 0; i< personList.size();i++){
-           Person p = personList.get(i);
-           if((p.getFirstName()+p.getLastName()).equals(person.getFirstName()+person.getLastName())){
-               personList.set(i,person);
-               return true;
-           }
-       }
-       return false;
+        for (int i = 0; i < personList.size(); i++) {
+            Person p = personList.get(i);
+            if ((p.getFirstName() + p.getLastName()).equals(person.getFirstName() + person.getLastName())) {
+                personList.set(i, person);
+                return true;
+            }
+        }
+        return false;
     }
 
+    @Override
+    public boolean removePerson(Person person) {
+        for (int i = 0; i < personList.size(); i++) {
+            Person p = personList.get(i);
+            if ((p.getFirstName() + p.getLastName()).equals(person.getFirstName() + person.getLastName())) {
+                personList.remove(i);
+                return true;
+            }
+        }
+        return false;
+    }
 }

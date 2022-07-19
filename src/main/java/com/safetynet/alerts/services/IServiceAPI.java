@@ -24,4 +24,6 @@ public interface IServiceAPI {
     boolean savePerson(Person person);
 
     boolean updatePerson(Person person);
+
+    boolean removePerson(Person person);
 }

@@ -5,14 +5,14 @@ import com.safetynet.alerts.controller.dto.PersonDtoWithAgeAndOtherMember;
 import com.safetynet.alerts.controller.dto.PersonWithAddressAgeEMail;
 import com.safetynet.alerts.models.Person;
 import com.safetynet.alerts.repository.PersonRepository;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 
 @SpringBootTest
@@ -74,7 +74,7 @@ public class PersonControllerTest {
     }
 
     @Test
-    void updatePerson() {
+    void updatePersonTest() {
 
         //Arrange
         Person person = new Person();
@@ -94,5 +94,28 @@ public class PersonControllerTest {
         //assert
         assertNotEquals(p.getPhone(), result.getPhone());
 
+    }
+
+    @Test
+    public void removePersonTest() {
+
+        //Arrange
+        Person person = new Person();
+        person.setFirstName("Zach");
+        person.setLastName("Zemicks");
+        person.setPhone("123-123-546");
+        person.setEmail("test@test.com");
+        person.setAddress("908 73rd St");
+        person.setZip("97451");
+        person.setCity("Culver");
+        personController.getListOfPersonAndTheirNumberStation("test");
+        int size = personRepository.getPersonList().size();
+
+        //Act
+        personController.removePerson(person);
+        int result = personRepository.getPersonList().size();
+
+        //Assert
+        assertEquals(size-1,result);
     }
 }

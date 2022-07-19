@@ -165,4 +165,19 @@ public class ServiceAPI implements IServiceAPI {
         }
         return personRepository.updatePerson(person);
     }
+
+    @Override
+    public boolean removePerson(Person person) {
+        if (dataIsLoaded) {
+            return personRepository.removePerson(person);
+        }
+        try {
+            dataLoader.load();
+            dataIsLoaded = true;
+        } catch (Exception e) {
+            logger.error("All Data are not loaded");
+            e.printStackTrace();
+        }
+        return personRepository.removePerson(person);
+    }
 }

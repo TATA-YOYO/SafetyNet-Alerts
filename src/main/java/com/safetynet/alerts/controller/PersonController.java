@@ -100,4 +100,12 @@ public class PersonController implements IPersonController {
         }
         return new Person();
     }
+
+    @DeleteMapping("/person")
+    public Person removePerson(@RequestBody Person person){
+        if (serviceAPI.removePerson(person)){
+            return person;
+        }
+        return new Person();
+    }
 }
