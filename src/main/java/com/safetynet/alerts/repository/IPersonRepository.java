@@ -17,4 +17,6 @@ public interface IPersonRepository {
     List<String> getEmailList(String city);
 
     boolean savePerson(Person person);
+
+    boolean updatePerson(Person person);
 }

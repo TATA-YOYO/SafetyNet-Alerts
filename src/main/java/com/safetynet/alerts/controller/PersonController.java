@@ -7,11 +7,7 @@ import com.safetynet.alerts.services.IServiceAPI;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -92,6 +88,14 @@ public class PersonController implements IPersonController {
     public Person createPerson(@RequestBody Person person) {
         boolean isSaved = serviceAPI.savePerson(person);
         if (isSaved) {
+            return person;
+        }
+        return new Person();
+    }
+
+    @PutMapping("/person")
+    public Person updatePerson(@RequestBody Person person) {
+        if (serviceAPI.updatePerson(person)) {
             return person;
         }
         return new Person();

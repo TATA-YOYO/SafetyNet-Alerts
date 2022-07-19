@@ -22,4 +22,6 @@ public interface IServiceAPI {
     List<String> getEmailList(String city);
 
     boolean savePerson(Person person);
+
+    boolean updatePerson(Person person);
 }

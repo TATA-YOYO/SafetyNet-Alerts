@@ -150,4 +150,19 @@ public class ServiceAPI implements IServiceAPI {
         }
         return personRepository.savePerson(person);
     }
+
+    @Override
+    public boolean updatePerson(Person person) {
+        if (dataIsLoaded) {
+            return personRepository.updatePerson(person);
+        }
+        try {
+            dataLoader.load();
+            dataIsLoaded = true;
+        } catch (Exception e) {
+            logger.error("All Data are not loaded");
+            e.printStackTrace();
+        }
+        return personRepository.updatePerson(person);
+    }
 }
