@@ -35,149 +35,74 @@ public class ServiceAPI implements IServiceAPI {
 
     @Override
     public List<PersonDtoWithAddressAndPhone> getPersonDtoWithAddressAndPhoneList(List<String> addressList) {
-        if (dataIsLoaded) {
-            return personRepository.getPersonDtoWithAddressAndPhoneList(addressList);
-        }
-        try {
-            dataLoader.load();
-            dataIsLoaded = true;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        loadDataIfNeeded();
         return personRepository.getPersonDtoWithAddressAndPhoneList(addressList);
     }
 
     @Override
     public List<PersonDtoWithAddressAndPhone> getPersonDtoWithAddressAndPhoneList(String address) {
-        if (dataIsLoaded) {
-            return personRepository.getPersonDtoWithAddressAndPhoneList(address);
-        }
-        try {
-            dataLoader.load();
-            dataIsLoaded = true;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        loadDataIfNeeded();
         return personRepository.getPersonDtoWithAddressAndPhoneList(address);
     }
 
+
+
     @Override
     public List<String> getAddressList(int stationNumber) {
-        if (dataIsLoaded) {
-            return fireStationRepository.getAddress(stationNumber);
-        }
-        try {
-            dataLoader.load();
-            dataIsLoaded = true;
-        } catch (Exception e) {
-            logger.error("All Data are not loaded");
-            e.printStackTrace();
-        }
+       loadDataIfNeeded();
         return fireStationRepository.getAddress(stationNumber);
     }
 
     @Override
     public List<MedicalRecord> getMedicalRecordList() {
-        if (dataIsLoaded) {
-            return medicalRecordRepository.getMedicalRecordList();
-        }
-        try {
-            dataLoader.load();
-            dataIsLoaded = true;
-        } catch (Exception e) {
-            logger.error("All Data are not loaded");
-            e.printStackTrace();
-        }
+        loadDataIfNeeded();
         return medicalRecordRepository.getMedicalRecordList();
     }
 
     @Override
     public int getStationNumber(String address) {
-        if (dataIsLoaded) {
-            return fireStationRepository.getStationNumber(address);
-        }
-        try {
-            dataLoader.load();
-            dataIsLoaded = true;
-        } catch (Exception e) {
-            logger.error("All Data are not loaded");
-            e.printStackTrace();
-        }
+        loadDataIfNeeded();
         return fireStationRepository.getStationNumber(address);
     }
 
     @Override
     public Person getPerson(String firstNameAndLastName) {
-        if (dataIsLoaded) {
-            return personRepository.getPerson(firstNameAndLastName);
-        }
-        try {
-            dataLoader.load();
-            dataIsLoaded = true;
-        } catch (Exception e) {
-            logger.error("All Data are not loaded");
-            e.printStackTrace();
-        }
+        loadDataIfNeeded();
         return personRepository.getPerson(firstNameAndLastName);
     }
 
     @Override
     public List<String> getEmailList(String city) {
-        if (dataIsLoaded) {
-            return personRepository.getEmailList(city);
-        }
-        try {
-            dataLoader.load();
-            dataIsLoaded = true;
-        } catch (Exception e) {
-            logger.error("All Data are not loaded");
-            e.printStackTrace();
-        }
+        loadDataIfNeeded();
         return personRepository.getEmailList(city);
     }
 
     @Override
     public boolean savePerson(Person person) {
-        if (dataIsLoaded) {
-            return personRepository.savePerson(person);
-        }
-        try {
-            dataLoader.load();
-            dataIsLoaded = true;
-        } catch (Exception e) {
-            logger.error("All Data are not loaded");
-            e.printStackTrace();
-        }
+        loadDataIfNeeded();
         return personRepository.savePerson(person);
     }
 
     @Override
     public boolean updatePerson(Person person) {
-        if (dataIsLoaded) {
-            return personRepository.updatePerson(person);
-        }
-        try {
-            dataLoader.load();
-            dataIsLoaded = true;
-        } catch (Exception e) {
-            logger.error("All Data are not loaded");
-            e.printStackTrace();
-        }
+        loadDataIfNeeded();
         return personRepository.updatePerson(person);
     }
 
     @Override
     public boolean removePerson(Person person) {
-        if (dataIsLoaded) {
-            return personRepository.removePerson(person);
-        }
-        try {
-            dataLoader.load();
-            dataIsLoaded = true;
-        } catch (Exception e) {
-            logger.error("All Data are not loaded");
-            e.printStackTrace();
-        }
+        loadDataIfNeeded();
         return personRepository.removePerson(person);
+    }
+
+    private void loadDataIfNeeded() {
+        if (!dataIsLoaded) {
+            try {
+                dataLoader.load();
+                dataIsLoaded = true;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
