@@ -1,5 +1,6 @@
 package com.safetynet.alerts.services;
 
+import com.safetynet.alerts.controller.dto.FireStationDto;
 import com.safetynet.alerts.controller.dto.PersonDtoWithAddressAndPhone;
 import com.safetynet.alerts.models.MedicalRecord;
 import com.safetynet.alerts.models.Person;
@@ -26,4 +27,5 @@ public interface IServiceAPI {
     boolean updatePerson(Person person);
 
     boolean removePerson(Person person);
+    boolean saveFireStation(FireStationDto fireStationDto);
 }

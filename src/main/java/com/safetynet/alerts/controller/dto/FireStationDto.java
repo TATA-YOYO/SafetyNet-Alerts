@@ -1,6 +1,6 @@
-package com.safetynet.alerts.models;
+package com.safetynet.alerts.controller.dto;
 
-public class FireStation {
+public class FireStationDto {
     private String address;
     private int station;
 

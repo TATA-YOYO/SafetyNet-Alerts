@@ -1,5 +1,6 @@
 package com.safetynet.alerts.controller;
 
+import com.safetynet.alerts.controller.dto.FireStationDto;
 import com.safetynet.alerts.controller.dto.PersonDtoListWithChildNumberDto;
 import com.safetynet.alerts.controller.dto.PersonDtoWithAddressAndPhone;
 import com.safetynet.alerts.controller.dto.PersonWithLastNameAndPhoneDto;
@@ -7,6 +8,8 @@ import com.safetynet.alerts.models.MedicalRecord;
 import com.safetynet.alerts.services.IServiceAPI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -78,5 +81,13 @@ public class FireStationController {
     @GetMapping("/communityEmail")
     public List<String> getEmailList(String city){
        return serviceAPI.getEmailList(city);
+    }
+
+    @PostMapping("/firestation")
+    public FireStationDto createFireStation(@RequestBody FireStationDto fireStationDto){
+        if(serviceAPI.saveFireStation(fireStationDto)){
+            return fireStationDto;
+        }
+        return new FireStationDto();
     }
 }

@@ -17,10 +17,10 @@ public class FireStationRepository implements IFireStationRepository {
 
     @Override
     public List<String> getAddress(int nbStation) {
-        List<String> stringList= new ArrayList<>();
+        List<String> stringList = new ArrayList<>();
         for (FireStation f : fireStationList) {
             if (f.getStation() == nbStation) {
-               stringList.add(f.getAddress());
+                stringList.add(f.getAddress());
             }
         }
         return stringList;
@@ -29,10 +29,26 @@ public class FireStationRepository implements IFireStationRepository {
     @Override
     public int getStationNumber(String address) {
         for (FireStation f : fireStationList) {
-            if (address.equals(f.getAddress())){
+            if (address.equals(f.getAddress())) {
                 return f.getStation();
             }
         }
         return 0;
+    }
+
+    @Override
+    public boolean saveFireStation(FireStation fireStation) {
+        boolean isPresent = false;
+        for (FireStation f : fireStationList) {
+            if (f.getStation() == fireStation.getStation()) {
+                isPresent = true;
+                break;
+            }
+        }
+        if (!isPresent) {
+            fireStationList.add(fireStation);
+            return true;
+        }
+        return false;
     }
 }

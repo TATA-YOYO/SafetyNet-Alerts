@@ -9,4 +9,6 @@ public interface IFireStationRepository {
     public List<String> getAddress(int nbStation);
 
     int getStationNumber(String address);
+
+    boolean saveFireStation(FireStation fireStation);
 }

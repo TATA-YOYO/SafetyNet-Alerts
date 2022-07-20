@@ -1,8 +1,10 @@
 package com.safetynet.alerts.controller;
 
 
+import com.safetynet.alerts.controller.dto.FireStationDto;
 import com.safetynet.alerts.controller.dto.PersonDtoListWithChildNumberDto;
 import com.safetynet.alerts.controller.dto.PersonWithLastNameAndPhoneDto;
+import com.safetynet.alerts.repository.FireStationRepository;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,9 @@ public class FireStationControllerTest {
 
     @Autowired
     private PersonController personController;
+
+    @Autowired
+    FireStationRepository fireStationRepository;
 
     @Test
     public void getPhoneListTest() {
@@ -58,11 +63,29 @@ public class FireStationControllerTest {
     }
 
     @Test
-    public void getEmailListTest(){
+    public void getEmailListTest() {
         //Act
         List<String> result = fireStationController.getEmailList("Culver");
 
         //Assert
-        assertEquals(23,result.size());
+        assertEquals(23, result.size());
+    }
+
+    @Test
+    public void createFireStation() {
+
+        //Arrange
+        FireStationDto fireStationDto = new FireStationDto();
+        fireStationDto.setStation(5);
+        fireStationDto.setAddress("10 rue du test des fire station");
+        fireStationController.getEmailList("test");
+        int size = fireStationRepository.getList().size();
+
+        //Act
+        fireStationController.createFireStation(fireStationDto);
+        int result = fireStationRepository.getList().size();
+
+        //Assert
+        assertEquals(size+1,result);
     }
 }
