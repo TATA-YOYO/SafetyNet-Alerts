@@ -27,5 +27,7 @@ public interface IServiceAPI {
     boolean updatePerson(Person person);
 
     boolean removePerson(Person person);
-    boolean saveFireStation(FireStationDto fireStationDto);
+    boolean saveListOfFireStation(List<FireStationDto> fireStationDto);
+
+    boolean updateFireStation(FireStationDto fireStationDto);
 }

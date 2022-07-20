@@ -4,8 +4,8 @@ package com.safetynet.alerts.controller;
 import com.safetynet.alerts.controller.dto.FireStationDto;
 import com.safetynet.alerts.controller.dto.PersonDtoListWithChildNumberDto;
 import com.safetynet.alerts.controller.dto.PersonWithLastNameAndPhoneDto;
+import com.safetynet.alerts.models.FireStation;
 import com.safetynet.alerts.repository.FireStationRepository;
-import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,8 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 public class FireStationControllerTest {
@@ -72,20 +71,54 @@ public class FireStationControllerTest {
     }
 
     @Test
-    public void createFireStation() {
+    public void createFireStationTest() {
 
         //Arrange
+        List<FireStationDto> fireStationDtosList = new ArrayList<>();
         FireStationDto fireStationDto = new FireStationDto();
         fireStationDto.setStation(5);
         fireStationDto.setAddress("10 rue du test des fire station");
+        FireStationDto fireStationDto2 = new FireStationDto();
+        fireStationDto.setStation(6);
+        fireStationDto.setAddress("10 rue du bobo");
+        fireStationDtosList.add(fireStationDto);
+        fireStationDtosList.add(fireStationDto2);
         fireStationController.getEmailList("test");
-        int size = fireStationRepository.getList().size();
+        int oldSize = fireStationRepository.getList().size();
 
         //Act
-        fireStationController.createFireStation(fireStationDto);
-        int result = fireStationRepository.getList().size();
+        fireStationController.createFireStation(fireStationDtosList);
+        int newSize = fireStationRepository.getList().size();
 
         //Assert
-        assertEquals(size+1,result);
+        assertEquals(oldSize + 2, newSize);
+    }
+
+    @Test
+    public void updateFireStationTest() {
+        //Arrange
+        FireStationDto fireStationDto = new FireStationDto();
+        fireStationDto.setStation(1);
+        fireStationDto.setAddress("489 Manchester St");
+        fireStationController.getEmailList("test");
+        int oldStationNumber = 0;
+        for (FireStation f : fireStationRepository.getList()) {
+            if (f.getAddress().equals("489 Manchester St")) {
+                oldStationNumber = f.getStation();
+            }
+        }
+
+        //Act
+        fireStationController.updateFireStation(fireStationDto);
+        int newStationNumber = 0;
+        for (FireStation f : fireStationRepository.getList()) {
+            if (f.getAddress().equals("489 Manchester St")) {
+                newStationNumber = f.getStation();
+                break;
+            }
+        }
+
+        //Assert
+        assertNotEquals(oldStationNumber, newStationNumber);
     }
 }

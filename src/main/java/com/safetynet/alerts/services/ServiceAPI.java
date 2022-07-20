@@ -101,9 +101,15 @@ public class ServiceAPI implements IServiceAPI {
     }
 
     @Override
-    public boolean saveFireStation(FireStationDto fireStationDto) {
+    public boolean saveListOfFireStation(List<FireStationDto> fireStationDto) {
         loadDataIfNeeded();
-       return fireStationRepository.saveFireStation(fireStationFactory.getFireStation(fireStationDto));
+       return fireStationRepository.saveListOfFireStation(fireStationFactory.getListOfFireStation(fireStationDto));
+    }
+
+    @Override
+    public boolean updateFireStation(FireStationDto fireStationDto) {
+        loadDataIfNeeded();
+       return fireStationRepository.updateFireStation(fireStationFactory.getFireStation(fireStationDto));
     }
 
     private void loadDataIfNeeded() {

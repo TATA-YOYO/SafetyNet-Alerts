@@ -7,10 +7,7 @@ import com.safetynet.alerts.controller.dto.PersonWithLastNameAndPhoneDto;
 import com.safetynet.alerts.models.MedicalRecord;
 import com.safetynet.alerts.services.IServiceAPI;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -58,10 +55,10 @@ public class FireStationController {
                 phoneMap.put(personDtoWithAddressAndPhone.getPhone(), 0);
             }
         }
-        for (PersonDtoWithAddressAndPhone personDtoWithAddressAndPhone : personWithAddressAndPhoneDtoList){
-            if (phoneMap.get(personDtoWithAddressAndPhone.getPhone())!=2){
+        for (PersonDtoWithAddressAndPhone personDtoWithAddressAndPhone : personWithAddressAndPhoneDtoList) {
+            if (phoneMap.get(personDtoWithAddressAndPhone.getPhone()) != 2) {
                 phoneList.add(personDtoWithAddressAndPhone.getPhone());
-                phoneMap.put(personDtoWithAddressAndPhone.getPhone(),2);
+                phoneMap.put(personDtoWithAddressAndPhone.getPhone(), 2);
             }
         }
         return phoneList;
@@ -79,13 +76,21 @@ public class FireStationController {
     }
 
     @GetMapping("/communityEmail")
-    public List<String> getEmailList(String city){
-       return serviceAPI.getEmailList(city);
+    public List<String> getEmailList(String city) {
+        return serviceAPI.getEmailList(city);
     }
 
     @PostMapping("/firestation")
-    public FireStationDto createFireStation(@RequestBody FireStationDto fireStationDto){
-        if(serviceAPI.saveFireStation(fireStationDto)){
+    public List<FireStationDto> createFireStation(@RequestBody List<FireStationDto> fireStationDtoList) {
+        if (serviceAPI.saveListOfFireStation(fireStationDtoList)) {
+            return fireStationDtoList;
+        }
+        return new ArrayList<>();
+    }
+
+    @PutMapping("/firestation")
+    public FireStationDto updateFireStation(@RequestBody FireStationDto fireStationDto) {
+        if (serviceAPI.updateFireStation(fireStationDto)) {
             return fireStationDto;
         }
         return new FireStationDto();

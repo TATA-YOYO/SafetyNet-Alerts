@@ -3,6 +3,10 @@ package com.safetynet.alerts.repository.tool;
 import com.safetynet.alerts.controller.dto.FireStationDto;
 import com.safetynet.alerts.models.FireStation;
 
+import java.util.List;
+
 public interface IFireStationFactory {
-    public FireStation getFireStation(FireStationDto fireStationDto);
+    List<FireStation> getListOfFireStation(List<FireStationDto> fireStationDtoList);
+
+    FireStation getFireStation(FireStationDto fireStationDto);
 }

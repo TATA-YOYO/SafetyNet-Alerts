@@ -10,5 +10,7 @@ public interface IFireStationRepository {
 
     int getStationNumber(String address);
 
-    boolean saveFireStation(FireStation fireStation);
+    boolean saveListOfFireStation(List<FireStation> fireStation);
+
+    boolean updateFireStation(FireStation fireStation);
 }

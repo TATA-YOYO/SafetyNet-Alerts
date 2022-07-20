@@ -37,17 +37,18 @@ public class FireStationRepository implements IFireStationRepository {
     }
 
     @Override
-    public boolean saveFireStation(FireStation fireStation) {
-        boolean isPresent = false;
-        for (FireStation f : fireStationList) {
-            if (f.getStation() == fireStation.getStation()) {
-                isPresent = true;
-                break;
+    public boolean saveListOfFireStation(List<FireStation> listOfFireStation) {
+        return fireStationList.addAll(listOfFireStation);
+    }
+
+    @Override
+    public boolean updateFireStation(FireStation fireStation) {
+        for (int i = 0; i < fireStationList.size(); i++) {
+            FireStation f = fireStationList.get(i);
+            if (f.getAddress().equals(fireStation.getAddress())) {
+                fireStationList.set(i, fireStation);
+                return true;
             }
-        }
-        if (!isPresent) {
-            fireStationList.add(fireStation);
-            return true;
         }
         return false;
     }
