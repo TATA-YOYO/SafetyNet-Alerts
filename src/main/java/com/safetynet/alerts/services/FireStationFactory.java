@@ -1,4 +1,4 @@
-package com.safetynet.alerts.repository.tool;
+package com.safetynet.alerts.services;
 
 import com.safetynet.alerts.controller.dto.FireStationDto;
 import com.safetynet.alerts.models.FireStation;

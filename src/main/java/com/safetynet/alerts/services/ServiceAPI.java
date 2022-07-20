@@ -1,6 +1,7 @@
 package com.safetynet.alerts.services;
 
 import com.safetynet.alerts.controller.dto.FireStationDto;
+import com.safetynet.alerts.controller.dto.MedicalRecordDto;
 import com.safetynet.alerts.controller.dto.PersonDtoWithAddressAndPhone;
 import com.safetynet.alerts.models.MedicalRecord;
 import com.safetynet.alerts.models.Person;
@@ -8,7 +9,6 @@ import com.safetynet.alerts.repository.IDataLoader;
 import com.safetynet.alerts.repository.IFireStationRepository;
 import com.safetynet.alerts.repository.IMedicalRecordRepository;
 import com.safetynet.alerts.repository.IPersonRepository;
-import com.safetynet.alerts.repository.tool.IFireStationFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -118,6 +118,13 @@ public class ServiceAPI implements IServiceAPI {
         loadDataIfNeeded();
         return fireStationRepository.removeFireStation(station);
     }
+
+    @Override
+    public boolean saveMedicalRecord(MedicalRecordDto medicalRecordDto) {
+        loadDataIfNeeded();
+        return medicalRecordRepository.saveMedicalRecord(MedicalRecordFactory.getMedicalRecord(medicalRecordDto));
+    }
+
 
     private void loadDataIfNeeded() {
         if (!dataIsLoaded) {

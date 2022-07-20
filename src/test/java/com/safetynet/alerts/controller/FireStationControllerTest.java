@@ -6,7 +6,6 @@ import com.safetynet.alerts.controller.dto.PersonDtoListWithChildNumberDto;
 import com.safetynet.alerts.controller.dto.PersonWithLastNameAndPhoneDto;
 import com.safetynet.alerts.models.FireStation;
 import com.safetynet.alerts.repository.FireStationRepository;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
