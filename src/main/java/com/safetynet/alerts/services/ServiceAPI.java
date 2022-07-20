@@ -112,6 +112,13 @@ public class ServiceAPI implements IServiceAPI {
        return fireStationRepository.updateFireStation(fireStationFactory.getFireStation(fireStationDto));
     }
 
+
+    @Override
+    public boolean removeFireStation(Integer station) {
+        loadDataIfNeeded();
+        return fireStationRepository.removeFireStation(station);
+    }
+
     private void loadDataIfNeeded() {
         if (!dataIsLoaded) {
             try {

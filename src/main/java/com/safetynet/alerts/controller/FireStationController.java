@@ -95,4 +95,12 @@ public class FireStationController {
         }
         return new FireStationDto();
     }
+
+    @DeleteMapping("/firestation")
+    public FireStationDto removeFireStation(@RequestBody FireStationDto fireStationDto){
+        if (serviceAPI.removeFireStation(fireStationDto.getStation())){
+            return fireStationDto;
+        }
+        return null;
+    }
 }

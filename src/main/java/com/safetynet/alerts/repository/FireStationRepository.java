@@ -52,4 +52,20 @@ public class FireStationRepository implements IFireStationRepository {
         }
         return false;
     }
+
+
+    @Override
+    public boolean removeFireStation(Integer station) {
+        List<FireStation> fList = new ArrayList<>();
+        fList.addAll(fireStationList);
+        boolean isRemove = false;
+        for (FireStation f : fireStationList) {
+            if (f.getStation() == station) {
+                fList.remove(f);
+                isRemove = true;
+            }
+        }
+        fireStationList = fList;
+        return isRemove;
+    }
 }

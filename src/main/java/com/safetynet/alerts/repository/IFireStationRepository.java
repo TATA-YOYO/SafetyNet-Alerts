@@ -13,4 +13,6 @@ public interface IFireStationRepository {
     boolean saveListOfFireStation(List<FireStation> fireStation);
 
     boolean updateFireStation(FireStation fireStation);
+
+    boolean removeFireStation(Integer station);
 }

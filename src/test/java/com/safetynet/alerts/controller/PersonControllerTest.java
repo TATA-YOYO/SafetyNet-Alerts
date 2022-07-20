@@ -5,6 +5,8 @@ import com.safetynet.alerts.controller.dto.PersonDtoWithAgeAndOtherMember;
 import com.safetynet.alerts.controller.dto.PersonWithAddressAgeEMail;
 import com.safetynet.alerts.models.Person;
 import com.safetynet.alerts.repository.PersonRepository;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,6 +25,11 @@ public class PersonControllerTest {
 
     @Autowired
     PersonRepository personRepository;
+
+    @BeforeEach
+    void setup(){
+        loadData();
+    }
 
     @Test
     void getPersonDtoWithAgeAndOtherMemberTest() {
@@ -62,7 +69,6 @@ public class PersonControllerTest {
         person.setAddress("10 rue de test");
         person.setZip("75012");
         person.setCity("Paris");
-        personController.getListOfPersonAndTheirNumberStation("test");
         int size = personRepository.getPersonList().size();
         personController.createPerson(person);
 
@@ -85,7 +91,6 @@ public class PersonControllerTest {
         person.setAddress("908 73rd St");
         person.setZip("97451");
         person.setCity("Culver");
-        personController.getListOfPersonAndTheirNumberStation("test");
         Person p = personRepository.getPerson(person.getFirstName() + person.getLastName());
 
         //Act
@@ -108,7 +113,6 @@ public class PersonControllerTest {
         person.setAddress("908 73rd St");
         person.setZip("97451");
         person.setCity("Culver");
-        personController.getListOfPersonAndTheirNumberStation("test");
         int size = personRepository.getPersonList().size();
 
         //Act
@@ -117,5 +121,9 @@ public class PersonControllerTest {
 
         //Assert
         assertEquals(size-1,result);
+    }
+
+    private void loadData(){
+        personController.getListOfPersonAndTheirNumberStation("test");
     }
 }
