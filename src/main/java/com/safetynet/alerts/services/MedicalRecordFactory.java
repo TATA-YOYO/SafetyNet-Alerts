@@ -11,6 +11,7 @@ public class MedicalRecordFactory {
        medicalRecord.setBirthdate(medicalRecordDto.getBirthdate());
        medicalRecord.setMedications(medicalRecordDto.getMedications());
        medicalRecord.setAllergies(medicalRecordDto.getAllergies());
+       medicalRecord.concatenate();
        return medicalRecord;
    }
 }

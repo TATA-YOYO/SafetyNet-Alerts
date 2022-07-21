@@ -36,4 +36,6 @@ public interface IServiceAPI {
     boolean removeFireStation(Integer station);
 
     boolean saveMedicalRecord(MedicalRecordDto medicalRecordDto);
+
+    boolean updateMedicalRecord(MedicalRecordDto medicalRecordDto);
 }

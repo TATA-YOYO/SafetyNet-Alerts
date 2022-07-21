@@ -8,9 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class FireStationFactory implements IFireStationFactory {
+public class FireStationFactory  {
 
-    @Override
     public List<FireStation> getListOfFireStation(List<FireStationDto> fireStationDtoList) {
         List<FireStation> fireStationList = new ArrayList<>();
         for (FireStationDto f : fireStationDtoList) {
@@ -23,7 +22,6 @@ public class FireStationFactory implements IFireStationFactory {
         return fireStationList;
     }
 
-    @Override
     public FireStation getFireStation(FireStationDto fireStationDto) {
         FireStation fireStation = new FireStation();
         fireStation.setStation(fireStationDto.getStation());

@@ -38,8 +38,8 @@ public class MedicalLoader implements IMedicalLoader {
             List<String> medications = new ArrayList<>();
             JSONArray medicationsArray = (JSONArray) medicalRecordJSON.get("medications");
             for (Object I : medicationsArray) {
-                String mdct = (String) I;
-                medications.add(mdct);
+                String mdcd = (String) I;
+                medications.add(mdcd);
             }
             medicalRecord.setMedications(medications);
             List<String> allergies = new ArrayList<>();

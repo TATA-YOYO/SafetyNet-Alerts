@@ -36,7 +36,7 @@ public class ServiceAPI implements IServiceAPI {
     private IMedicalRecordRepository medicalRecordRepository;
 
     @Autowired
-    private IFireStationFactory fireStationFactory;
+    private FireStationFactory fireStationFactory;
 
     @Override
     public List<PersonDtoWithAddressAndPhone> getPersonDtoWithAddressAndPhoneList(List<String> addressList) {
@@ -123,6 +123,12 @@ public class ServiceAPI implements IServiceAPI {
     public boolean saveMedicalRecord(MedicalRecordDto medicalRecordDto) {
         loadDataIfNeeded();
         return medicalRecordRepository.saveMedicalRecord(MedicalRecordFactory.getMedicalRecord(medicalRecordDto));
+    }
+
+    @Override
+    public boolean updateMedicalRecord(MedicalRecordDto medicalRecordDto) {
+        loadDataIfNeeded();
+        return medicalRecordRepository.updateMEdicalRecord(MedicalRecordFactory.getMedicalRecord(medicalRecordDto));
     }
 
 
