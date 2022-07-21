@@ -38,4 +38,6 @@ public interface IServiceAPI {
     boolean saveMedicalRecord(MedicalRecordDto medicalRecordDto);
 
     boolean updateMedicalRecord(MedicalRecordDto medicalRecordDto);
+
+    boolean removeMedicalRecord(MedicalRecordDto medicalRecordDto);
 }

@@ -75,6 +75,24 @@ public class MedicalRecordControllerTest {
         assertEquals(medicationList, stringList);
     }
 
+    @Test
+    public void removeMedicalRecordTest(){
+        //Arrange
+        MedicalRecordDto medicalRecordDto = new MedicalRecordDto();
+        medicalRecordDto.setFirstName("Allison");
+        medicalRecordDto.setLastName("Boyd");
+        medicalRecordDto.setBirthdate(new Date());
+        medicalRecordDto.setMedications(stringList);
+        int oldSize = medicalRecordRepository.getMedicalRecordList().size();
+
+        //Act
+        medicalRecordController.removeMedicalRecord(medicalRecordDto);
+        int newSize= medicalRecordRepository.getMedicalRecordList().size();
+
+        //Assert
+        assertEquals(oldSize-1,newSize);
+    }
+
     private void loadData() {
         fireStationController.getEmailList("test");
     }

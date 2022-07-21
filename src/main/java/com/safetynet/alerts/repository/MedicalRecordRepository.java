@@ -1,6 +1,7 @@
 package com.safetynet.alerts.repository;
 
 import com.safetynet.alerts.models.MedicalRecord;
+import com.safetynet.alerts.models.Person;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -38,6 +39,18 @@ public class MedicalRecordRepository implements IMedicalRecordRepository {
             MedicalRecord m = medicalRecordList.get(i);
             if (m.getFirstNameAndLastName().equals(medicalRecord.getFirstNameAndLastName())) {
                 medicalRecordList.set(i, medicalRecord);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean removeMedicalRecord(MedicalRecord medicalRecord) {
+        for (int i = 0; i < medicalRecordList.size(); i++) {
+            MedicalRecord m = medicalRecordList.get(i);
+            if (m.getFirstNameAndLastName().equals(medicalRecord.getFirstNameAndLastName())) {
+                medicalRecordList.remove(i);
                 return true;
             }
         }

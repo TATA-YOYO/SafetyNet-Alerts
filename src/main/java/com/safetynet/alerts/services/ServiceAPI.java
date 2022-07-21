@@ -131,6 +131,12 @@ public class ServiceAPI implements IServiceAPI {
         return medicalRecordRepository.updateMEdicalRecord(MedicalRecordFactory.getMedicalRecord(medicalRecordDto));
     }
 
+    @Override
+    public boolean removeMedicalRecord(MedicalRecordDto medicalRecordDto) {
+        loadDataIfNeeded();
+        return medicalRecordRepository.removeMedicalRecord(MedicalRecordFactory.getMedicalRecord(medicalRecordDto));
+    }
+
 
     private void loadDataIfNeeded() {
         if (!dataIsLoaded) {
