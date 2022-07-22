@@ -84,8 +84,8 @@ public class FireStationControllerTest {
         fireStationDto.setStation(5);
         fireStationDto.setAddress("10 rue du test des fire station");
         FireStationDto fireStationDto2 = new FireStationDto();
-        fireStationDto.setStation(6);
-        fireStationDto.setAddress("10 rue du bobo");
+        fireStationDto2.setStation(6);
+        fireStationDto2.setAddress("10 rue du bobo");
         fireStationDtosList.add(fireStationDto);
         fireStationDtosList.add(fireStationDto2);
         int oldSize = fireStationRepository.getList().size();

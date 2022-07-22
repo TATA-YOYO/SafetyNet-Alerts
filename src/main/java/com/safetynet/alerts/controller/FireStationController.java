@@ -7,8 +7,11 @@ import com.safetynet.alerts.controller.dto.PersonWithLastNameAndPhoneDto;
 import com.safetynet.alerts.models.MedicalRecord;
 import com.safetynet.alerts.services.IServiceAPI;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -81,11 +84,16 @@ public class FireStationController {
     }
 
     @PostMapping("/firestation")
-    public List<FireStationDto> createFireStation(@RequestBody List<FireStationDto> fireStationDtoList) {
+    public ResponseEntity<List<FireStationDto>> createFireStation(@RequestBody List<FireStationDto> fireStationDtoList) {
         if (serviceAPI.saveListOfFireStation(fireStationDtoList)) {
-            return fireStationDtoList;
+            URI location = ServletUriComponentsBuilder
+                    .fromCurrentRequest()
+                    .path("/{id}")
+                    .buildAndExpand(fireStationDtoList)
+                    .toUri();
+            return ResponseEntity.created(location).build();
         }
-        return new ArrayList<>();
+        return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/firestation")
@@ -97,8 +105,8 @@ public class FireStationController {
     }
 
     @DeleteMapping("/firestation")
-    public FireStationDto removeFireStation(@RequestBody FireStationDto fireStationDto){
-        if (serviceAPI.removeFireStation(fireStationDto.getStation())){
+    public FireStationDto removeFireStation(@RequestBody FireStationDto fireStationDto) {
+        if (serviceAPI.removeFireStation(fireStationDto.getStation())) {
             return fireStationDto;
         }
         return null;
