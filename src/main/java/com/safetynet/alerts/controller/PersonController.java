@@ -105,7 +105,7 @@ public class PersonController implements IPersonController {
         if (serviceAPI.updatePerson(person)) {
             return person;
         }
-        return new Person();
+        return person;
     }
 
     @DeleteMapping("/person")
@@ -113,6 +113,6 @@ public class PersonController implements IPersonController {
         if (serviceAPI.removePerson(person)){
             return person;
         }
-        return new Person();
+        return person;
     }
 }

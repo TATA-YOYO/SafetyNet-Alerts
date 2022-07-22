@@ -101,7 +101,7 @@ public class FireStationController {
         if (serviceAPI.updateFireStation(fireStationDto)) {
             return fireStationDto;
         }
-        return new FireStationDto();
+        return fireStationDto;
     }
 
     @DeleteMapping("/firestation")
@@ -109,6 +109,6 @@ public class FireStationController {
         if (serviceAPI.removeFireStation(fireStationDto.getStation())) {
             return fireStationDto;
         }
-        return null;
+        return fireStationDto;
     }
 }

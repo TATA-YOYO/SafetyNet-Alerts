@@ -33,7 +33,7 @@ public class MedicalRecordController {
         if(serviceAPI.updateMedicalRecord(medicalRecordDto)){
             return medicalRecordDto;
         }
-        return new MedicalRecordDto();
+        return medicalRecordDto;
     }
 
     @DeleteMapping("/medicalRecord")
@@ -41,6 +41,6 @@ public class MedicalRecordController {
         if(serviceAPI.removeMedicalRecord(medicalRecordDto)){
             return medicalRecordDto;
         }
-        return new MedicalRecordDto();
+        return medicalRecordDto;
     }
 }
