@@ -7,8 +7,11 @@ import com.safetynet.alerts.services.IServiceAPI;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -85,12 +88,16 @@ public class PersonController implements IPersonController {
     }
 
     @PostMapping("/person")
-    public Person createPerson(@RequestBody Person person) {
-        boolean isSaved = serviceAPI.savePerson(person);
-        if (isSaved) {
-            return person;
+    public ResponseEntity<Person> createPerson(@RequestBody Person person) {
+        if (serviceAPI.savePerson(person)) {
+            URI location = ServletUriComponentsBuilder
+                    .fromCurrentRequest()
+                    .path("/{id}")
+                    .buildAndExpand(person.getFirstName()+person.getLastName())
+                    .toUri();
+            return ResponseEntity.created(location).build();
         }
-        return new Person();
+        return  ResponseEntity.noContent().build();
     }
 
     @PutMapping("/person")

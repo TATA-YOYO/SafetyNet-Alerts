@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Repository
 public class PersonRepository implements IPersonRepository {
@@ -64,6 +65,11 @@ public class PersonRepository implements IPersonRepository {
 
     @Override
     public boolean savePerson(Person person) {
+        if (person.getFirstName() == null || person.getLastName() == null || person.getAddress() == null || person.getEmail() == null ||
+                person.getPhone() == null || person.getCity() == null || person.getZip() == null || person.getFirstName().isEmpty() || person.getLastName().isEmpty() || person.getAddress().isEmpty() || person.getEmail().isEmpty() ||
+                person.getPhone().isEmpty() || person.getCity().isEmpty() || person.getZip().isEmpty()) {
+            return false;
+        }
         boolean isPresent = false;
         for (Person p : personList) {
             if ((p.getFirstName() + p.getLastName()).equals(person.getFirstName() + person.getLastName())) {
