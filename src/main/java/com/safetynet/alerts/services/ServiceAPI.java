@@ -2,7 +2,6 @@ package com.safetynet.alerts.services;
 
 import com.safetynet.alerts.controller.dto.FireStationDto;
 import com.safetynet.alerts.controller.dto.MedicalRecordDto;
-import com.safetynet.alerts.controller.dto.PersonDtoWithAddressAndPhone;
 import com.safetynet.alerts.models.MedicalRecord;
 import com.safetynet.alerts.models.Person;
 import com.safetynet.alerts.repository.IDataLoader;
@@ -39,22 +38,8 @@ public class ServiceAPI implements IServiceAPI {
     private FireStationFactory fireStationFactory;
 
     @Override
-    public List<PersonDtoWithAddressAndPhone> getPersonDtoWithAddressAndPhoneList(List<String> addressList) {
-        loadDataIfNeeded();
-        return personRepository.getPersonDtoWithAddressAndPhoneList(addressList);
-    }
-
-    @Override
-    public List<PersonDtoWithAddressAndPhone> getPersonDtoWithAddressAndPhoneList(String address) {
-        loadDataIfNeeded();
-        return personRepository.getPersonDtoWithAddressAndPhoneList(address);
-    }
-
-
-
-    @Override
     public List<String> getAddressList(int stationNumber) {
-       loadDataIfNeeded();
+        loadDataIfNeeded();
         return fireStationRepository.getAddress(stationNumber);
     }
 
@@ -103,13 +88,13 @@ public class ServiceAPI implements IServiceAPI {
     @Override
     public boolean saveListOfFireStation(List<FireStationDto> fireStationDto) {
         loadDataIfNeeded();
-       return fireStationRepository.saveListOfFireStation(fireStationFactory.getListOfFireStation(fireStationDto));
+        return fireStationRepository.saveListOfFireStation(fireStationFactory.getListOfFireStation(fireStationDto));
     }
 
     @Override
     public boolean updateFireStation(FireStationDto fireStationDto) {
         loadDataIfNeeded();
-       return fireStationRepository.updateFireStation(fireStationFactory.getFireStation(fireStationDto));
+        return fireStationRepository.updateFireStation(fireStationFactory.getFireStation(fireStationDto));
     }
 
 
@@ -135,6 +120,12 @@ public class ServiceAPI implements IServiceAPI {
     public boolean removeMedicalRecord(MedicalRecordDto medicalRecordDto) {
         loadDataIfNeeded();
         return medicalRecordRepository.removeMedicalRecord(MedicalRecordFactory.getMedicalRecord(medicalRecordDto));
+    }
+
+    @Override
+    public List<Person> getPersonList() {
+        loadDataIfNeeded();
+        return personRepository.getPersonList();
     }
 
 

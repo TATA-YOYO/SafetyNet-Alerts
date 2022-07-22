@@ -26,19 +26,25 @@ public class PersonController implements IPersonController {
     @GetMapping("/childAlert")
     public List<PersonDtoWithAgeAndOtherMember> getPersonDtoWithAgeAndOtherMember(final String address) {
         List<PersonDtoWithAgeAndOtherMember> personDtoWithAgeAndOtherMemberList = new ArrayList<>();
-        List<PersonDto> personDtoList = new ArrayList<>();
-        for (PersonDtoWithAddressAndPhone personDtoWithAddressAndPhone : serviceAPI.getPersonDtoWithAddressAndPhoneList(address)) {
-            personDtoList.add(personDtoWithAddressAndPhone.getPersonDto(true));
+        List<Person> personList = new ArrayList<>();
+        for (Person person : serviceAPI.getPersonList()) {
+            if (person.getAddress().equals(address)) {
+                personList.add(person);
+            }
         }
-        for (PersonDto personDto : personDtoList) {
+
+        for (Person person : personList) {
             for (MedicalRecord medicalRecord : serviceAPI.getMedicalRecordList()) {
-                if (medicalRecord.getFirstName().equals(personDto.getFirstName()) && medicalRecord.getLastName().equals(personDto.getLastName())) {
+                if (medicalRecord.getFirstName().equals(person.getFirstName()) && medicalRecord.getLastName().equals(person.getLastName())) {
                     int age = medicalRecord.getAge();
                     if (age < 18) {
                         List<PersonDto> otherMembers = new ArrayList<>();
-                        for (PersonDto personDto2 : personDtoList) {
-                            if (!Objects.equals(personDto2.getFirstName(), personDto.getFirstName())) {
-                                otherMembers.add(personDto2);
+                        for (Person person2 : personList) {
+                            if (!Objects.equals(person2.getFirstName(), person.getFirstName())) {
+                                PersonDto personDto = new PersonDto();
+                                personDto.setFirstName(person2.getFirstName());
+                                personDto.setLastName(person2.getLastName());
+                                otherMembers.add(personDto);
                             }
                         }
                         PersonDtoWithAgeAndOtherMember personDtoWithAgeAndOtherMember = new PersonDtoWithAgeAndOtherMember(medicalRecord.getFirstName(),
@@ -58,12 +64,18 @@ public class PersonController implements IPersonController {
     @GetMapping("/fire")
     public ListOfPersonAndTheirNumberStation getListOfPersonAndTheirNumberStation(final String address) {
         List<PersonWithLastNameAndPhoneDto> personWithLastNameAndPhoneDtoList = new ArrayList<>();
-        for (PersonDtoWithAddressAndPhone personDtoWithAddressAndPhone : serviceAPI.getPersonDtoWithAddressAndPhoneList(address)) {
+        List<Person> personList = new ArrayList<>();
+        for (Person person : serviceAPI.getPersonList()) {
+            if (person.getAddress().equals(address)) {
+                personList.add(person);
+            }
+        }
+        for (Person person : personList) {
             for (MedicalRecord medicalRecord : serviceAPI.getMedicalRecordList()) {
-                String firstNameAndLastName = personDtoWithAddressAndPhone.getFirstName() + personDtoWithAddressAndPhone.getLastName();
+                String firstNameAndLastName = person.getFirstName() + person.getLastName();
                 if (medicalRecord.getFirstNameAndLastName().equals(firstNameAndLastName)) {
                     PersonWithLastNameAndPhoneDto personWithLastNameAndPhoneDto = new PersonWithLastNameAndPhoneDto
-                            (personDtoWithAddressAndPhone.getLastName(), personDtoWithAddressAndPhone.getPhone(),
+                            (person.getLastName(), person.getPhone(),
                                     medicalRecord.getAge(), medicalRecord.getMedications(), medicalRecord.getAllergies());
                     personWithLastNameAndPhoneDtoList.add(personWithLastNameAndPhoneDto);
                     break;
@@ -93,11 +105,11 @@ public class PersonController implements IPersonController {
             URI location = ServletUriComponentsBuilder
                     .fromCurrentRequest()
                     .path("/{id}")
-                    .buildAndExpand(person.getFirstName()+person.getLastName())
+                    .buildAndExpand(person.getFirstName() + person.getLastName())
                     .toUri();
             return ResponseEntity.created(location).build();
         }
-        return  ResponseEntity.noContent().build();
+        return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/person")
@@ -109,8 +121,8 @@ public class PersonController implements IPersonController {
     }
 
     @DeleteMapping("/person")
-    public Person removePerson(@RequestBody Person person){
-        if (serviceAPI.removePerson(person)){
+    public Person removePerson(@RequestBody Person person) {
+        if (serviceAPI.removePerson(person)) {
             return person;
         }
         return person;

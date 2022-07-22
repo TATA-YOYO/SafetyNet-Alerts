@@ -1,12 +1,10 @@
 package com.safetynet.alerts.repository;
 
 import com.safetynet.alerts.models.Person;
-import com.safetynet.alerts.controller.dto.PersonDtoWithAddressAndPhone;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Repository
 public class PersonRepository implements IPersonRepository {
@@ -15,30 +13,6 @@ public class PersonRepository implements IPersonRepository {
     @Override
     public List<Person> getPersonList() {
         return personList;
-    }
-
-    @Override
-    public List<PersonDtoWithAddressAndPhone> getPersonDtoWithAddressAndPhoneList(List<String> addressList) {
-        List<PersonDtoWithAddressAndPhone> personWithAddressAndPhoneDtoList = new ArrayList<>();
-        for (String address : addressList) {
-            for (Person p : personList) {
-                if (p.getAddress().equals(address)) {
-                    personWithAddressAndPhoneDtoList.add(p.getPersonDtoWithAddressAndPhone());
-                }
-            }
-        }
-        return personWithAddressAndPhoneDtoList;
-    }
-
-    @Override
-    public List<PersonDtoWithAddressAndPhone> getPersonDtoWithAddressAndPhoneList(String address) {
-        List<PersonDtoWithAddressAndPhone> personWithAddressAndPhoneDtoList = new ArrayList<>();
-        for (Person p : personList) {
-            if (p.getAddress().equals(address)) {
-                personWithAddressAndPhoneDtoList.add(p.getPersonDtoWithAddressAndPhone());
-            }
-        }
-        return personWithAddressAndPhoneDtoList;
     }
 
     @Override

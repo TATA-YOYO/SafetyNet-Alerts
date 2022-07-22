@@ -1,6 +1,7 @@
 package com.safetynet.alerts.services;
 
 import com.safetynet.alerts.controller.dto.PersonDtoWithAddressAndPhone;
+import com.safetynet.alerts.models.Person;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,9 +34,21 @@ public class ServiceTest {
     @Test
     void getPersonToShareList() {
         //Act
-        List<PersonDtoWithAddressAndPhone> personWithAddressAndPhoneDtoList = serviceAPI.getPersonDtoWithAddressAndPhoneList(addressList);
+        List<PersonDtoWithAddressAndPhone> personDtoWithAddressAndPhoneList = new ArrayList<>();
+        for (Person person : serviceAPI.getPersonList()){
+            for (String address:addressList){
+                if (person.getAddress().equals(address)){
+                    PersonDtoWithAddressAndPhone personDtoWithAddressAndPhone = new PersonDtoWithAddressAndPhone();
+                    personDtoWithAddressAndPhone.setFirstName(person.getFirstName());
+                    personDtoWithAddressAndPhone.setLastName(person.getLastName());
+                    personDtoWithAddressAndPhone.setAddress(person.getAddress());
+                    personDtoWithAddressAndPhone.setPhone(person.getPhone());
+                    personDtoWithAddressAndPhoneList.add(personDtoWithAddressAndPhone);
+                }
+            }
+        }
         //Assert
-        assertEquals(13, personWithAddressAndPhoneDtoList.size());
+        assertEquals(13, personDtoWithAddressAndPhoneList.size());
     }
 
     @Test
