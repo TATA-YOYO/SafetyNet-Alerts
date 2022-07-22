@@ -19,6 +19,12 @@ public class MedicalRecordRepository implements IMedicalRecordRepository {
 
     @Override
     public boolean saveMedicalRecord(MedicalRecord medicalRecord) {
+        if (medicalRecord.getLastName()==null|| medicalRecord.getLastName().isEmpty()
+                ||medicalRecord.getFirstName()==null||medicalRecord.getFirstName().isEmpty()
+                ||medicalRecord.getAge()==0) {
+            return false;
+        }
+        int age = medicalRecord.getAge();
         boolean isPresent = false;
         for (MedicalRecord m : medicalRecordList) {
             if (m.getFirstNameAndLastName().equals(medicalRecord.getFirstNameAndLastName())) {
@@ -34,7 +40,7 @@ public class MedicalRecordRepository implements IMedicalRecordRepository {
     }
 
     @Override
-    public boolean updateMEdicalRecord(MedicalRecord medicalRecord) {
+    public boolean updateMedicalRecord(MedicalRecord medicalRecord) {
         for (int i = 0; i < medicalRecordList.size(); i++) {
             MedicalRecord m = medicalRecordList.get(i);
             if (m.getFirstNameAndLastName().equals(medicalRecord.getFirstNameAndLastName())) {

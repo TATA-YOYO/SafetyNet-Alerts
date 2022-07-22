@@ -41,7 +41,7 @@ public class MedicalRecordControllerTest {
         MedicalRecordDto medicalRecordDto = new MedicalRecordDto();
         medicalRecordDto.setFirstName("momo");
         medicalRecordDto.setLastName("boss");
-        medicalRecordDto.setBirthdate(new Date());
+        medicalRecordDto.setBirthdate(new Date(1));
         medicalRecordDto.setMedications(stringList);
         int oldSize = medicalRecordRepository.getMedicalRecordList().size();
 

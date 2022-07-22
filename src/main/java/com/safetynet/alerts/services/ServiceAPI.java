@@ -128,7 +128,7 @@ public class ServiceAPI implements IServiceAPI {
     @Override
     public boolean updateMedicalRecord(MedicalRecordDto medicalRecordDto) {
         loadDataIfNeeded();
-        return medicalRecordRepository.updateMEdicalRecord(MedicalRecordFactory.getMedicalRecord(medicalRecordDto));
+        return medicalRecordRepository.updateMedicalRecord(MedicalRecordFactory.getMedicalRecord(medicalRecordDto));
     }
 
     @Override

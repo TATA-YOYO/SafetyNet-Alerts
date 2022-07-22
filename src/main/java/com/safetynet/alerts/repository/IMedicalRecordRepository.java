@@ -11,7 +11,7 @@ public interface IMedicalRecordRepository {
 
     boolean saveMedicalRecord(MedicalRecord medicalRecord);
 
-    boolean updateMEdicalRecord(MedicalRecord medicalRecord);
+    boolean updateMedicalRecord(MedicalRecord medicalRecord);
 
     boolean removeMedicalRecord(MedicalRecord medicalRecord);
 }
