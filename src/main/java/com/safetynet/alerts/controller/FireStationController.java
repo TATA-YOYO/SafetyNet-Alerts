@@ -68,6 +68,7 @@ public class FireStationController {
             logger.info("Response of Query N°" + requestNumber + ": " + personDtoListWithChildNumberDto);
             return personDtoListWithChildNumberDto;
         }
+        logger.debug("StationNumber is null");
         PersonDtoListWithChildNumberDto personDtoListWithChildNumberDto = new PersonDtoListWithChildNumberDto();
         logger.info("Response of Query N°" + requestNumber + ": " + personDtoListWithChildNumberDto);
         return personDtoListWithChildNumberDto;
@@ -109,6 +110,7 @@ public class FireStationController {
             logger.info("Response of Query N°" + requestNumber + ": " + phoneList);
             return phoneList;
         }
+        logger.debug("StationNumber is null");
         List<String> phoneList = new ArrayList<>();
         logger.info("Response of Query N°" + requestNumber + ": " + phoneList);
         return phoneList;

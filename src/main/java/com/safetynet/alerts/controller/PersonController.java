@@ -37,7 +37,7 @@ public class PersonController implements IPersonController {
                 personList.add(person);
             }
         }
-
+        logger.debug("List of person is filtered");
         for (Person person : personList) {
             for (MedicalRecord medicalRecord : serviceAPI.getMedicalRecordList()) {
                 if (medicalRecord.getFirstName().equals(person.getFirstName()) && medicalRecord.getLastName().equals(person.getLastName())) {

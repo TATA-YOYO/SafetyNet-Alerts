@@ -2,6 +2,8 @@ package com.safetynet.alerts.repository;
 
 import com.safetynet.alerts.models.MedicalRecord;
 import com.safetynet.alerts.models.Person;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -9,7 +11,8 @@ import java.util.List;
 
 @Repository
 public class MedicalRecordRepository implements IMedicalRecordRepository {
-    List<MedicalRecord> medicalRecordList = new ArrayList<>();
+    private static final Logger logger = LogManager.getLogger("MedicalRecordRepository");
+   private final List<MedicalRecord> medicalRecordList = new ArrayList<>();
 
 
     @Override
@@ -22,6 +25,7 @@ public class MedicalRecordRepository implements IMedicalRecordRepository {
         if (medicalRecord.getLastName()==null|| medicalRecord.getLastName().isEmpty()
                 ||medicalRecord.getFirstName()==null||medicalRecord.getFirstName().isEmpty()
                 ||medicalRecord.getAge()==0) {
+            logger.debug("this object contains empty or a null value");
             return false;
         }
         int age = medicalRecord.getAge();
@@ -36,6 +40,7 @@ public class MedicalRecordRepository implements IMedicalRecordRepository {
             medicalRecordList.add(medicalRecord);
             return true;
         }
+        logger.debug("this object("+medicalRecord+") cannot be saved because is already saved");
         return false;
     }
 
@@ -48,6 +53,7 @@ public class MedicalRecordRepository implements IMedicalRecordRepository {
                 return true;
             }
         }
+        logger.debug("this object("+medicalRecord+") is unknown");
         return false;
     }
 
@@ -60,6 +66,7 @@ public class MedicalRecordRepository implements IMedicalRecordRepository {
                 return true;
             }
         }
+        logger.debug("this object("+medicalRecord+") is unknown");
         return false;
     }
 }

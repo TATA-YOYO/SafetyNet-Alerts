@@ -4,6 +4,14 @@ public class FireStation {
     private String address;
     private int station;
 
+    @Override
+    public String toString() {
+        return "FireStation{" +
+                "address='" + address + '\'' +
+                ", station=" + station +
+                '}';
+    }
+
     public String getAddress() {
         return address;
     }

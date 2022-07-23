@@ -1,6 +1,8 @@
 package com.safetynet.alerts.repository;
 
 import com.safetynet.alerts.models.Person;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -8,6 +10,7 @@ import java.util.List;
 
 @Repository
 public class PersonRepository implements IPersonRepository {
+    private static final Logger logger = LogManager.getLogger("PersonRepository");
     private final List<Person> personList = new ArrayList<>();
 
     @Override
@@ -23,6 +26,7 @@ public class PersonRepository implements IPersonRepository {
                 return p;
             }
         }
+        logger.debug("this person("+firstNameAndLastName+") is unknown");
         return null;
     }
 
@@ -32,6 +36,7 @@ public class PersonRepository implements IPersonRepository {
         for (Person person : personList) {
             if (person.getCity().equals(city)) {
                 eMailList.add(person.getEmail());
+                logger.debug(person.getEmail()+"is added to the list of email");
             }
         }
         return eMailList;
@@ -42,6 +47,7 @@ public class PersonRepository implements IPersonRepository {
         if (person.getFirstName() == null || person.getLastName() == null || person.getAddress() == null || person.getEmail() == null ||
                 person.getPhone() == null || person.getCity() == null || person.getZip() == null || person.getFirstName().isEmpty() || person.getLastName().isEmpty() || person.getAddress().isEmpty() || person.getEmail().isEmpty() ||
                 person.getPhone().isEmpty() || person.getCity().isEmpty() || person.getZip().isEmpty()) {
+            logger.debug("this object("+person+") contains empty or a null value");
             return false;
         }
         boolean isPresent = false;
@@ -55,6 +61,7 @@ public class PersonRepository implements IPersonRepository {
             personList.add(person);
             return true;
         }
+        logger.debug("this object("+person+") cannot be saved because is already saved");
         return false;
     }
 
@@ -67,6 +74,7 @@ public class PersonRepository implements IPersonRepository {
                 return true;
             }
         }
+        logger.debug("this object("+person+") is unknown");
         return false;
     }
 
@@ -79,6 +87,7 @@ public class PersonRepository implements IPersonRepository {
                 return true;
             }
         }
+        logger.debug("this object("+person+") is unknown");
         return false;
     }
 }

@@ -14,7 +14,7 @@ import java.net.URI;
 @RestController
 public class MedicalRecordController {
 
-    private static final Logger logger = LogManager.getLogger("PersonController");
+    private static final Logger logger = LogManager.getLogger("MedicalRecordController");
 
     @Autowired
     private RequestCounter requestCounter;
@@ -40,10 +40,10 @@ public class MedicalRecordController {
     }
 
     @PutMapping("/medicalRecord")
-    public MedicalRecordDto updateMedicalRecord(@RequestBody MedicalRecordDto medicalRecordDto){
+    public MedicalRecordDto updateMedicalRecord(@RequestBody MedicalRecordDto medicalRecordDto) {
         int requestNumber = requestCounter.addRequest();
         logger.info("Query N°" + requestNumber + " : " + "PUT http://localhost:8080/medicalRecord" + medicalRecordDto);
-        if(serviceAPI.updateMedicalRecord(medicalRecordDto)){
+        if (serviceAPI.updateMedicalRecord(medicalRecordDto)) {
             logger.info("Response of Query N°" + requestNumber + ": " + medicalRecordDto);
             return medicalRecordDto;
         }
@@ -53,10 +53,10 @@ public class MedicalRecordController {
     }
 
     @DeleteMapping("/medicalRecord")
-    public  MedicalRecordDto removeMedicalRecord(@RequestBody MedicalRecordDto medicalRecordDto){
+    public MedicalRecordDto removeMedicalRecord(@RequestBody MedicalRecordDto medicalRecordDto) {
         int requestNumber = requestCounter.addRequest();
         logger.info("Query N°" + requestNumber + " : " + "DELETE http://localhost:8080/medicalRecord" + medicalRecordDto);
-        if(serviceAPI.removeMedicalRecord(medicalRecordDto)){
+        if (serviceAPI.removeMedicalRecord(medicalRecordDto)) {
             logger.info("Response of Query N°" + requestNumber + ": " + medicalRecordDto);
             return medicalRecordDto;
         }

@@ -30,6 +30,6 @@ public class DataLoader implements IDataLoader {
         personLoader.load(jsonObject);
         fireStationLoader.load(jsonObject);
         medicalLoader.load(jsonObject);
-        logger.info("All data from file are loaded in system.");
+        logger.debug("All data from file are loaded.");
     }
 }

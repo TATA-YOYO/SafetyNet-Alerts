@@ -20,9 +20,10 @@ public class JsonLoader implements IJsonLoader {
         try {
             data = (JSONObject) new JSONParser().parse(new FileReader(filePath));
         } catch (IOException e) {
-            logger.error("Data file cannot be read");
+            logger.error("file cannot be read");
             e.printStackTrace();
         }
+        logger.debug("The file has been read");
         return data;
     }
 }

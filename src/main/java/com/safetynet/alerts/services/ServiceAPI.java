@@ -140,5 +140,6 @@ public class ServiceAPI implements IServiceAPI {
                 e.printStackTrace();
             }
         }
+        logger.debug("all data is already loaded");
     }
 }

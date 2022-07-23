@@ -16,6 +16,18 @@ public class MedicalRecord {
     @JsonIgnore
     private String firstNameAndLastName;
 
+    @Override
+    public String toString() {
+        return "MedicalRecord{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", birthdate=" + birthdate +
+                ", medications=" + medications +
+                ", allergies=" + allergies +
+                ", firstNameAndLastName='" + firstNameAndLastName + '\'' +
+                '}';
+    }
+
     public int getAge() {
         return (int) ((new Date().getTime() - birthdate.getTime()) / (Time.MILLISECOND_PER_DAY * Time.DAYS_IN_YEAR));
     }
