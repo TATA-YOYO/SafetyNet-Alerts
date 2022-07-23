@@ -4,6 +4,14 @@ public class PersonDtoWithAddressAndPhone extends PersonDto {
     private String address;
     private String phone;
 
+    @Override
+    public String toString() {
+        return "PersonDtoWithAddressAndPhone{" +
+                "address='" + address + '\'' +
+                ", phone='" + phone + '\'' +
+                '}';
+    }
+
     public String getAddress() {
         return address;
     }

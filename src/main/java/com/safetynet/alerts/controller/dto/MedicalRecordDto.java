@@ -10,6 +10,17 @@ public class MedicalRecordDto {
     private List<String> medications;
     private List<String> allergies;
 
+    @Override
+    public String toString() {
+        return "MedicalRecordDto{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", birthdate=" + birthdate +
+                ", medications=" + medications +
+                ", allergies=" + allergies +
+                '}';
+    }
+
     public String getFirstName() {
         return firstName;
     }

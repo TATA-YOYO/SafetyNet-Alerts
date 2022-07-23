@@ -8,6 +8,15 @@ public class PersonDto {
         this.firstName = firstName;
         this.lastName = lastName;
     }
+
+    @Override
+    public String toString() {
+        return "PersonDto{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                '}';
+    }
+
     public PersonDto(){}
 
     public String getFirstName() {

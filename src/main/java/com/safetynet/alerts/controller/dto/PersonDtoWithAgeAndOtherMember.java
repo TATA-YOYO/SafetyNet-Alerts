@@ -14,6 +14,14 @@ public class PersonDtoWithAgeAndOtherMember extends PersonDto {
         this.otherMembers= otherMembers;
     }
 
+    @Override
+    public String toString() {
+        return "PersonDtoWithAgeAndOtherMember{" +
+                "Age=" + Age +
+                ", otherMembers=" + otherMembers +
+                '}';
+    }
+
     public int getAge() {
         return Age;
     }

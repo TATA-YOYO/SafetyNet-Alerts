@@ -17,6 +17,17 @@ public class PersonWithLastNameAndPhoneDto {
         this.allergies = allergies;
     }
 
+    @Override
+    public String toString() {
+        return "PersonWithLastNameAndPhoneDto{" +
+                "lastName='" + lastName + '\'' +
+                ", Phone='" + Phone + '\'' +
+                ", age=" + age +
+                ", medications=" + medications +
+                ", allergies=" + allergies +
+                '}';
+    }
+
     public String getLastName() {
         return lastName;
     }

@@ -16,7 +16,17 @@ public class PersonWithAddressAgeEMail {
 
     }
 
-        public String getLastName() {
+    @Override
+    public String toString() {
+        return "PersonWithAddressAgeEMail{" +
+                "lastName='" + lastName + '\'' +
+                ", address='" + address + '\'' +
+                ", age=" + age +
+                ", eMail='" + eMail + '\'' +
+                '}';
+    }
+
+    public String getLastName() {
         return lastName;
     }
 

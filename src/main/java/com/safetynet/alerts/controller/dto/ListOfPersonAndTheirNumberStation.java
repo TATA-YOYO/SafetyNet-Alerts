@@ -6,6 +6,14 @@ public class ListOfPersonAndTheirNumberStation {
     private List<PersonWithLastNameAndPhoneDto> personWithLastNameAndPhoneDtoList;
     private int station;
 
+    @Override
+    public String toString() {
+        return "ListOfPersonAndTheirNumberStation{" +
+                "personWithLastNameAndPhoneDtoList=" + personWithLastNameAndPhoneDtoList +
+                ", station=" + station +
+                '}';
+    }
+
     public ListOfPersonAndTheirNumberStation(List<PersonWithLastNameAndPhoneDto> personWithLastNameAndPhoneDtoList, int station) {
         this.personWithLastNameAndPhoneDtoList = personWithLastNameAndPhoneDtoList;
         this.station = station;

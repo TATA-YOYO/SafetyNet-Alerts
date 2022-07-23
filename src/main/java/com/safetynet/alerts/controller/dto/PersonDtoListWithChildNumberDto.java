@@ -7,6 +7,14 @@ public class PersonDtoListWithChildNumberDto {
     private int nbAdult;
     private int nbChild;
 
+    @Override
+    public String toString() {
+        return "PersonDtoListWithChildNumberDto{" +
+                "personWithAddressAndPhoneDtoList=" + personWithAddressAndPhoneDtoList +
+                ", nbAdult=" + nbAdult +
+                ", nbChild=" + nbChild +
+                '}';
+    }
 
     public PersonDtoListWithChildNumberDto(List<PersonDtoWithAddressAndPhone> personWithAddressAndPhoneDtoList, int nbAdult, int nbChild) {
         this.personWithAddressAndPhoneDtoList = personWithAddressAndPhoneDtoList;

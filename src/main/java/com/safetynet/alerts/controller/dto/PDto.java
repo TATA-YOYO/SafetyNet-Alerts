@@ -9,6 +9,19 @@ public class PDto {
     private String phone;
     private String email;
 
+    @Override
+    public String toString() {
+        return "PDto{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", address='" + address + '\'' +
+                ", city='" + city + '\'' +
+                ", zip='" + zip + '\'' +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
+
     public String getFirstName() {
         return firstName;
     }
