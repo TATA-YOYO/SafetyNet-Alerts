@@ -2,7 +2,7 @@ package com.safetynet.alerts.controller;
 
 import com.safetynet.alerts.controller.dto.ListOfPersonAndTheirNumberStation;
 import com.safetynet.alerts.controller.dto.PersonDtoWithAgeAndOtherMember;
-import com.safetynet.alerts.controller.dto.PersonWithAddressAgeEMail;
+import com.safetynet.alerts.controller.dto.PersonWithAddressAgeEmail;
 
 import java.util.List;
 
@@ -11,5 +11,5 @@ public interface IPersonController {
 
     ListOfPersonAndTheirNumberStation getListOfPersonAndTheirNumberStation(final String address);
 
-    PersonWithAddressAgeEMail getPersonWithAddressAgeEMail(String firstName, String lastName);
+    PersonWithAddressAgeEmail getPersonWithAddressAgeEMail(String firstName, String lastName);
 }

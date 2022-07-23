@@ -1,24 +1,24 @@
 package com.safetynet.alerts.controller.dto;
 
-public class PersonWithAddressAgeEMail {
+public class PersonWithAddressAgeEmail {
     private String lastName;
     private String address;
     private int age;
     private String eMail;
 
-    public PersonWithAddressAgeEMail(String lastName, String address, int age, String eMail) {
+    public PersonWithAddressAgeEmail(String lastName, String address, int age, String eMail) {
         this.lastName = lastName;
         this.address = address;
         this.age = age;
         this.eMail = eMail;
     }
-    public PersonWithAddressAgeEMail() {
+    public PersonWithAddressAgeEmail() {
 
     }
 
     @Override
     public String toString() {
-        return "PersonWithAddressAgeEMail{" +
+        return "PersonWithAddressAgeEmail{" +
                 "lastName='" + lastName + '\'' +
                 ", address='" + address + '\'' +
                 ", age=" + age +

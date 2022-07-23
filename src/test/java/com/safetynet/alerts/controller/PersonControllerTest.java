@@ -3,7 +3,7 @@ package com.safetynet.alerts.controller;
 import com.safetynet.alerts.controller.dto.ListOfPersonAndTheirNumberStation;
 import com.safetynet.alerts.controller.dto.PDto;
 import com.safetynet.alerts.controller.dto.PersonDtoWithAgeAndOtherMember;
-import com.safetynet.alerts.controller.dto.PersonWithAddressAgeEMail;
+import com.safetynet.alerts.controller.dto.PersonWithAddressAgeEmail;
 import com.safetynet.alerts.models.Person;
 import com.safetynet.alerts.repository.PersonRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -52,7 +52,7 @@ public class PersonControllerTest {
     @Test
     void getPersonWithAddressAgeEMail() {
         //Act
-        PersonWithAddressAgeEMail result = personController.getPersonWithAddressAgeEMail("Lily", "Cooper");
+        PersonWithAddressAgeEmail result = personController.getPersonWithAddressAgeEMail("Lily", "Cooper");
 
         //Assert
         assertEquals(28, result.getAge());

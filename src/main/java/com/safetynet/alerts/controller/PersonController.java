@@ -22,9 +22,14 @@ public class PersonController implements IPersonController {
     @Autowired
     private IServiceAPI serviceAPI;
 
+    @Autowired
+    private RequestCounter requestCounter;
+
     @Override
     @GetMapping("/childAlert")
     public List<PersonDtoWithAgeAndOtherMember> getPersonDtoWithAgeAndOtherMember(final String address) {
+        int requestNumber = requestCounter.addRequest();
+        logger.info("Query N°" + requestNumber + " : " + "http://localhost:8080/childAlert?address=" + address);
         List<PersonDtoWithAgeAndOtherMember> personDtoWithAgeAndOtherMemberList = new ArrayList<>();
         List<Person> personList = new ArrayList<>();
         for (Person person : serviceAPI.getPersonList()) {
@@ -56,13 +61,15 @@ public class PersonController implements IPersonController {
                 }
             }
         }
-        logger.info("Result " + personDtoWithAgeAndOtherMemberList);
+        logger.info("Response of Query N°" + requestNumber + ": " + personDtoWithAgeAndOtherMemberList);
         return personDtoWithAgeAndOtherMemberList;
     }
 
     @Override
     @GetMapping("/fire")
     public ListOfPersonAndTheirNumberStation getListOfPersonAndTheirNumberStation(final String address) {
+        int requestNumber = requestCounter.addRequest();
+        logger.info("Query N°" + requestNumber + " : " + "http://localhost:8080/fire?address=" + address);
         List<PersonWithLastNameAndPhoneDto> personWithLastNameAndPhoneDtoList = new ArrayList<>();
         List<Person> personList = new ArrayList<>();
         for (Person person : serviceAPI.getPersonList()) {
@@ -82,49 +89,71 @@ public class PersonController implements IPersonController {
                 }
             }
         }
-        return new ListOfPersonAndTheirNumberStation(personWithLastNameAndPhoneDtoList, serviceAPI.getStationNumber(address));
+        ListOfPersonAndTheirNumberStation listOfPersonAndTheirNumberStation = new ListOfPersonAndTheirNumberStation(personWithLastNameAndPhoneDtoList, serviceAPI.getStationNumber(address));
+        logger.info("Response of Query N°" + requestNumber + ": " + listOfPersonAndTheirNumberStation);
+        return listOfPersonAndTheirNumberStation;
     }
 
     @Override
     @GetMapping("/personInfo")
-    public PersonWithAddressAgeEMail getPersonWithAddressAgeEMail(String firstName, String lastName) {
+    public PersonWithAddressAgeEmail getPersonWithAddressAgeEMail(String firstName, String lastName) {
+        int requestNumber = requestCounter.addRequest();
+        logger.info("Query N°" + requestNumber + " : " + "http://localhost:8080/personInfo?firstName=" + firstName + "&&" + lastName);
         if (serviceAPI.getPerson(firstName + lastName) != null) {
             Person person = serviceAPI.getPerson(firstName + lastName);
             for (MedicalRecord medicalRecord : serviceAPI.getMedicalRecordList()) {
                 if (medicalRecord.getFirstNameAndLastName().equals(person.getFirstName() + person.getLastName())) {
-                    return new PersonWithAddressAgeEMail(person.getLastName(), person.getAddress(), medicalRecord.getAge(), person.getEmail());
+                    PersonWithAddressAgeEmail personWithAddressAgeEMail = new PersonWithAddressAgeEmail(person.getLastName(), person.getAddress(), medicalRecord.getAge(), person.getEmail());
+                    logger.info("Response of Query N°" + requestNumber + ": " + personWithAddressAgeEMail);
+                    return personWithAddressAgeEMail;
                 }
             }
         }
-        return new PersonWithAddressAgeEMail();
+        PersonWithAddressAgeEmail personWithAddressAgeEMail = new PersonWithAddressAgeEmail();
+        logger.info("Response of Query N°" + requestNumber + ": " + personWithAddressAgeEMail);
+        return personWithAddressAgeEMail;
     }
 
     @PostMapping("/person")
     public ResponseEntity<PersonDto> createPerson(@RequestBody PDto pDto) {
+        int requestNumber = requestCounter.addRequest();
+        logger.info("Query N°" + requestNumber + " : " + "POST http://localhost:8080/person" + pDto);
         if (serviceAPI.savePerson(pDto)) {
             URI location = ServletUriComponentsBuilder
                     .fromCurrentRequest()
                     .path("/{id}")
                     .buildAndExpand(pDto.getFirstName() + pDto.getLastName())
                     .toUri();
+            logger.info("Response of Query N°" + requestNumber + ": " + "Code 201");
             return ResponseEntity.created(location).build();
         }
+        logger.info("Response of Query N°" + requestNumber + ": " + "Code 204");
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/person")
     public PDto updatePerson(@RequestBody PDto pDto) {
+        int requestNumber = requestCounter.addRequest();
+        logger.info("Query N°" + requestNumber + " : " + "PUT http://localhost:8080/person" + pDto);
         if (serviceAPI.updatePerson(pDto)) {
+            logger.info("Response of Query N°" + requestNumber + ": " + pDto);
             return pDto;
         }
-        return new PDto();
+        PDto pDto1 = new PDto();
+        logger.info("Response of Query N°" + requestNumber + ": " + pDto1);
+        return pDto1;
     }
 
     @DeleteMapping("/person")
     public PDto removePerson(@RequestBody PDto pDto) {
+        int requestNumber = requestCounter.addRequest();
+        logger.info("Query N°" + requestNumber + " : " + "DELETE http://localhost:8080/person" + pDto);
         if (serviceAPI.removePerson(pDto)) {
+            logger.info("Response of Query N°" + requestNumber + ": " + pDto);
             return pDto;
         }
-        return new PDto();
+        PDto pDto1 = new PDto();
+        logger.info("Response of Query N°" + requestNumber + ": " + pDto1);
+        return pDto1;
     }
 }

@@ -26,7 +26,7 @@ public class FireStationController {
     private static final Logger logger = LogManager.getLogger("FireStationController");
 
     @Autowired
-    RequestCounter requestCounter;
+    private RequestCounter requestCounter;
 
     @Autowired
     private IServiceAPI serviceAPI;
