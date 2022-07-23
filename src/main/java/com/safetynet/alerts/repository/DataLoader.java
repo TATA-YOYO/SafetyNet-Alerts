@@ -8,10 +8,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 @Component
-public class DataLoader implements IDataLoader {
+public class DataLoader implements CommandLineRunner {
     private static final Logger logger = LogManager.getLogger("DataLoader");
     @Autowired
     private IJsonLoader jsonLoader;
@@ -25,7 +26,8 @@ public class DataLoader implements IDataLoader {
     @Autowired
     private IMedicalLoader medicalLoader;
 
-    public void load() throws Exception {
+    @Override
+    public void run(String... args) throws Exception {
         JSONObject jsonObject = jsonLoader.load("C:\\Users\\Marc-black\\data.json");
         personLoader.load(jsonObject);
         fireStationLoader.load(jsonObject);
