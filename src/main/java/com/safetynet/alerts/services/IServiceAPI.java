@@ -2,6 +2,7 @@ package com.safetynet.alerts.services;
 
 import com.safetynet.alerts.controller.dto.FireStationDto;
 import com.safetynet.alerts.controller.dto.MedicalRecordDto;
+import com.safetynet.alerts.controller.dto.PDto;
 import com.safetynet.alerts.models.MedicalRecord;
 import com.safetynet.alerts.models.Person;
 
@@ -19,11 +20,11 @@ public interface IServiceAPI {
 
     List<String> getEmailList(String city);
 
-    boolean savePerson(Person person);
+    boolean savePerson(PDto personDto);
 
-    boolean updatePerson(Person person);
+    boolean updatePerson(PDto person);
 
-    boolean removePerson(Person person);
+    boolean removePerson(PDto person);
 
     boolean saveListOfFireStation(List<FireStationDto> fireStationDto);
 

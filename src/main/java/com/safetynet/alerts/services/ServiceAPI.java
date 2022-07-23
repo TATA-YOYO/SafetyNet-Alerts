@@ -2,6 +2,7 @@ package com.safetynet.alerts.services;
 
 import com.safetynet.alerts.controller.dto.FireStationDto;
 import com.safetynet.alerts.controller.dto.MedicalRecordDto;
+import com.safetynet.alerts.controller.dto.PDto;
 import com.safetynet.alerts.models.MedicalRecord;
 import com.safetynet.alerts.models.Person;
 import com.safetynet.alerts.repository.IDataLoader;
@@ -68,21 +69,21 @@ public class ServiceAPI implements IServiceAPI {
     }
 
     @Override
-    public boolean savePerson(Person person) {
+    public boolean savePerson(PDto pDto) {
         loadDataIfNeeded();
-        return personRepository.savePerson(person);
+        return personRepository.savePerson(PersonFactory.getPerson(pDto));
     }
 
     @Override
-    public boolean updatePerson(Person person) {
+    public boolean updatePerson(PDto pDto) {
         loadDataIfNeeded();
-        return personRepository.updatePerson(person);
+        return personRepository.updatePerson(PersonFactory.getPerson(pDto));
     }
 
     @Override
-    public boolean removePerson(Person person) {
+    public boolean removePerson(PDto pDto) {
         loadDataIfNeeded();
-        return personRepository.removePerson(person);
+        return personRepository.removePerson(PersonFactory.getPerson(pDto));
     }
 
     @Override

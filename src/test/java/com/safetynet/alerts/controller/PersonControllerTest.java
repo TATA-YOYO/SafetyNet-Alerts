@@ -1,11 +1,11 @@
 package com.safetynet.alerts.controller;
 
 import com.safetynet.alerts.controller.dto.ListOfPersonAndTheirNumberStation;
+import com.safetynet.alerts.controller.dto.PDto;
 import com.safetynet.alerts.controller.dto.PersonDtoWithAgeAndOtherMember;
 import com.safetynet.alerts.controller.dto.PersonWithAddressAgeEMail;
 import com.safetynet.alerts.models.Person;
 import com.safetynet.alerts.repository.PersonRepository;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 
 @SpringBootTest
@@ -60,16 +61,16 @@ public class PersonControllerTest {
     @Test
     void createPersonTest() throws Exception {
         //Arrange
-        Person person = new Person();
-        person.setFirstName("momo");
-        person.setLastName("boss");
-        person.setPhone("123-123-546");
-        person.setEmail("test@test.com");
-        person.setAddress("10 rue de test");
-        person.setZip("75012");
-        person.setCity("Paris");
+        PDto pDto = new PDto();
+        pDto.setFirstName("momo");
+        pDto.setLastName("boss");
+        pDto.setPhone("123-123-546");
+        pDto.setEmail("test@test.com");
+        pDto.setAddress("10 rue de test");
+        pDto.setZip("75012");
+        pDto.setCity("Paris");
         int size = personRepository.getPersonList().size();
-        personController.createPerson(person);
+       personController.createPerson(pDto);
 
         //Act
         List<Person> result = personRepository.getPersonList();
@@ -82,7 +83,7 @@ public class PersonControllerTest {
     void updatePersonTest() {
 
         //Arrange
-        Person person = new Person();
+        PDto person = new PDto();
         person.setFirstName("Zach");
         person.setLastName("Zemicks");
         person.setPhone("123-123-546");
@@ -93,7 +94,7 @@ public class PersonControllerTest {
         Person p = personRepository.getPerson(person.getFirstName() + person.getLastName());
 
         //Act
-        personController.updatePerson(person);
+       personController.updatePerson(person);
         Person result = personRepository.getPerson(person.getFirstName() + person.getLastName());
         //assert
         assertNotEquals(p.getPhone(), result.getPhone());
@@ -104,7 +105,7 @@ public class PersonControllerTest {
     public void removePersonTest() {
 
         //Arrange
-        Person person = new Person();
+        PDto person = new PDto();
         person.setFirstName("Zach");
         person.setLastName("Zemicks");
         person.setPhone("123-123-546");

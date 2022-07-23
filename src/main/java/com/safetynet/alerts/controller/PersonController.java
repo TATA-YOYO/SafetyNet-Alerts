@@ -100,12 +100,12 @@ public class PersonController implements IPersonController {
     }
 
     @PostMapping("/person")
-    public ResponseEntity<Person> createPerson(@RequestBody Person person) {
-        if (serviceAPI.savePerson(person)) {
+    public ResponseEntity<PersonDto> createPerson(@RequestBody PDto pDto) {
+        if (serviceAPI.savePerson(pDto)) {
             URI location = ServletUriComponentsBuilder
                     .fromCurrentRequest()
                     .path("/{id}")
-                    .buildAndExpand(person.getFirstName() + person.getLastName())
+                    .buildAndExpand(pDto.getFirstName() + pDto.getLastName())
                     .toUri();
             return ResponseEntity.created(location).build();
         }
@@ -113,18 +113,18 @@ public class PersonController implements IPersonController {
     }
 
     @PutMapping("/person")
-    public Person updatePerson(@RequestBody Person person) {
-        if (serviceAPI.updatePerson(person)) {
-            return person;
+    public PDto updatePerson(@RequestBody PDto pDto) {
+        if (serviceAPI.updatePerson(pDto)) {
+            return pDto;
         }
-        return person;
+        return new PDto();
     }
 
     @DeleteMapping("/person")
-    public Person removePerson(@RequestBody Person person) {
-        if (serviceAPI.removePerson(person)) {
-            return person;
+    public PDto removePerson(@RequestBody PDto pDto) {
+        if (serviceAPI.removePerson(pDto)) {
+            return pDto;
         }
-        return person;
+        return new PDto();
     }
 }
