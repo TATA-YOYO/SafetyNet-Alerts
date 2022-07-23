@@ -9,6 +9,9 @@ import com.safetynet.alerts.repository.IDataLoader;
 import com.safetynet.alerts.repository.IFireStationRepository;
 import com.safetynet.alerts.repository.IMedicalRecordRepository;
 import com.safetynet.alerts.repository.IPersonRepository;
+import com.safetynet.alerts.services.util.FireStationFactory;
+import com.safetynet.alerts.services.util.MedicalRecordFactory;
+import com.safetynet.alerts.services.util.PersonFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +38,6 @@ public class ServiceAPI implements IServiceAPI {
     @Autowired
     private IMedicalRecordRepository medicalRecordRepository;
 
-    @Autowired
-    private FireStationFactory fireStationFactory;
 
     @Override
     public List<String> getAddressList(int stationNumber) {
@@ -89,13 +90,13 @@ public class ServiceAPI implements IServiceAPI {
     @Override
     public boolean saveListOfFireStation(List<FireStationDto> fireStationDto) {
         loadDataIfNeeded();
-        return fireStationRepository.saveListOfFireStation(fireStationFactory.getListOfFireStation(fireStationDto));
+        return fireStationRepository.saveListOfFireStation(FireStationFactory.getListOfFireStation(fireStationDto));
     }
 
     @Override
     public boolean updateFireStation(FireStationDto fireStationDto) {
         loadDataIfNeeded();
-        return fireStationRepository.updateFireStation(fireStationFactory.getFireStation(fireStationDto));
+        return fireStationRepository.updateFireStation(FireStationFactory.getFireStation(fireStationDto));
     }
 
 

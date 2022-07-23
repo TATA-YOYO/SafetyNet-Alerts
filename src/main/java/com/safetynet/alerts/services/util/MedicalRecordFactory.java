@@ -1,4 +1,4 @@
-package com.safetynet.alerts.services;
+package com.safetynet.alerts.services.util;
 
 import com.safetynet.alerts.controller.dto.MedicalRecordDto;
 import com.safetynet.alerts.models.MedicalRecord;

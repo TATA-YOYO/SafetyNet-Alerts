@@ -1,4 +1,4 @@
-package com.safetynet.alerts.services;
+package com.safetynet.alerts.services.util;
 
 import com.safetynet.alerts.controller.dto.FireStationDto;
 import com.safetynet.alerts.models.FireStation;
@@ -7,10 +7,10 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
+
 public class FireStationFactory  {
 
-    public List<FireStation> getListOfFireStation(List<FireStationDto> fireStationDtoList) {
+    public static List<FireStation> getListOfFireStation(List<FireStationDto> fireStationDtoList) {
         List<FireStation> fireStationList = new ArrayList<>();
         for (FireStationDto f : fireStationDtoList) {
             FireStation fireStation = new FireStation();
@@ -22,7 +22,7 @@ public class FireStationFactory  {
         return fireStationList;
     }
 
-    public FireStation getFireStation(FireStationDto fireStationDto) {
+    public static FireStation getFireStation(FireStationDto fireStationDto) {
         FireStation fireStation = new FireStation();
         fireStation.setStation(fireStationDto.getStation());
         fireStation.setAddress(fireStationDto.getAddress());

@@ -1,4 +1,4 @@
-package com.safetynet.alerts.services;
+package com.safetynet.alerts.services.util;
 
 import com.safetynet.alerts.controller.dto.PDto;
 import com.safetynet.alerts.models.Person;
