@@ -8,7 +8,7 @@ import com.safetynet.alerts.models.Person;
 
 import java.util.List;
 
-public interface IServiceAPI {
+public interface IAPIService {
 
     List<String> getAddressList(int stationNumber);
 

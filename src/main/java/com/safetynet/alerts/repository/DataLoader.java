@@ -28,7 +28,7 @@ public class DataLoader implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        JSONObject jsonObject = jsonLoader.load("C:\\Users\\Marc-black\\data.json");
+        JSONObject jsonObject = jsonLoader.load("./src/main/resources/data.json");
         personLoader.load(jsonObject);
         fireStationLoader.load(jsonObject);
         medicalLoader.load(jsonObject);

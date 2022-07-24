@@ -1,7 +1,7 @@
 package com.safetynet.alerts.controller;
 
 import com.safetynet.alerts.controller.dto.MedicalRecordDto;
-import com.safetynet.alerts.services.IServiceAPI;
+import com.safetynet.alerts.services.IAPIService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,13 +20,13 @@ public class MedicalRecordController {
     private RequestCounter requestCounter;
 
     @Autowired
-    private IServiceAPI serviceAPI;
+    private IAPIService APIService;
 
     @PostMapping("/medicalRecord")
     public ResponseEntity<MedicalRecordDto> createMedicalRecord(@RequestBody MedicalRecordDto medicalRecordDto) {
         int requestNumber = requestCounter.addRequest();
-        logger.info("Query N°" + requestNumber + " : " + "POST http://localhost:8080/medicalRecord" + medicalRecordDto);
-        if (serviceAPI.saveMedicalRecord(medicalRecordDto)) {
+        logger.info("Query N°" + requestNumber + " : " + "POST http://localhost:8080/medicalRecord " + medicalRecordDto);
+        if (APIService.saveMedicalRecord(medicalRecordDto)) {
             URI location = ServletUriComponentsBuilder
                     .fromCurrentRequest()
                     .path("/{id}")
@@ -42,8 +42,8 @@ public class MedicalRecordController {
     @PutMapping("/medicalRecord")
     public MedicalRecordDto updateMedicalRecord(@RequestBody MedicalRecordDto medicalRecordDto) {
         int requestNumber = requestCounter.addRequest();
-        logger.info("Query N°" + requestNumber + " : " + "PUT http://localhost:8080/medicalRecord" + medicalRecordDto);
-        if (serviceAPI.updateMedicalRecord(medicalRecordDto)) {
+        logger.info("Query N°" + requestNumber + " : " + "PUT http://localhost:8080/medicalRecord " + medicalRecordDto);
+        if (APIService.updateMedicalRecord(medicalRecordDto)) {
             logger.info("Response of Query N°" + requestNumber + ": " + medicalRecordDto);
             return medicalRecordDto;
         }
@@ -55,8 +55,8 @@ public class MedicalRecordController {
     @DeleteMapping("/medicalRecord")
     public MedicalRecordDto removeMedicalRecord(@RequestBody MedicalRecordDto medicalRecordDto) {
         int requestNumber = requestCounter.addRequest();
-        logger.info("Query N°" + requestNumber + " : " + "DELETE http://localhost:8080/medicalRecord" + medicalRecordDto);
-        if (serviceAPI.removeMedicalRecord(medicalRecordDto)) {
+        logger.info("Query N°" + requestNumber + " : " + "DELETE http://localhost:8080/medicalRecord " + medicalRecordDto);
+        if (APIService.removeMedicalRecord(medicalRecordDto)) {
             logger.info("Response of Query N°" + requestNumber + ": " + medicalRecordDto);
             return medicalRecordDto;
         }

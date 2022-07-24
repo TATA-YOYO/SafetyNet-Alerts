@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ServiceAPI implements IServiceAPI {
+public class APIService implements IAPIService {
 
     private static final Logger logger = LogManager.getLogger("ServiceAPI");
 

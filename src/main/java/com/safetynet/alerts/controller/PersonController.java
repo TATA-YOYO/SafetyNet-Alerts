@@ -3,7 +3,7 @@ package com.safetynet.alerts.controller;
 import com.safetynet.alerts.controller.dto.*;
 import com.safetynet.alerts.models.MedicalRecord;
 import com.safetynet.alerts.models.Person;
-import com.safetynet.alerts.services.IServiceAPI;
+import com.safetynet.alerts.services.IAPIService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ import java.util.Objects;
 public class PersonController implements IPersonController {
     private static final Logger logger = LogManager.getLogger("PersonController");
     @Autowired
-    private IServiceAPI serviceAPI;
+    private IAPIService APIService;
 
     @Autowired
     private RequestCounter requestCounter;
@@ -32,14 +32,14 @@ public class PersonController implements IPersonController {
         logger.info("Query N°" + requestNumber + " : " + "http://localhost:8080/childAlert?address=" + address);
         List<PersonDtoWithAgeAndOtherMember> personDtoWithAgeAndOtherMemberList = new ArrayList<>();
         List<Person> personList = new ArrayList<>();
-        for (Person person : serviceAPI.getPersonList()) {
+        for (Person person : APIService.getPersonList()) {
             if (person.getAddress().equals(address)) {
                 personList.add(person);
             }
         }
         logger.debug("List of person is filtered");
         for (Person person : personList) {
-            for (MedicalRecord medicalRecord : serviceAPI.getMedicalRecordList()) {
+            for (MedicalRecord medicalRecord : APIService.getMedicalRecordList()) {
                 if (medicalRecord.getFirstName().equals(person.getFirstName()) && medicalRecord.getLastName().equals(person.getLastName())) {
                     int age = medicalRecord.getAge();
                     if (age < 18) {
@@ -72,13 +72,13 @@ public class PersonController implements IPersonController {
         logger.info("Query N°" + requestNumber + " : " + "http://localhost:8080/fire?address=" + address);
         List<PersonWithLastNameAndPhoneDto> personWithLastNameAndPhoneDtoList = new ArrayList<>();
         List<Person> personList = new ArrayList<>();
-        for (Person person : serviceAPI.getPersonList()) {
+        for (Person person : APIService.getPersonList()) {
             if (person.getAddress().equals(address)) {
                 personList.add(person);
             }
         }
         for (Person person : personList) {
-            for (MedicalRecord medicalRecord : serviceAPI.getMedicalRecordList()) {
+            for (MedicalRecord medicalRecord : APIService.getMedicalRecordList()) {
                 String firstNameAndLastName = person.getFirstName() + person.getLastName();
                 if (medicalRecord.getFirstNameAndLastName().equals(firstNameAndLastName)) {
                     PersonWithLastNameAndPhoneDto personWithLastNameAndPhoneDto = new PersonWithLastNameAndPhoneDto
@@ -89,7 +89,7 @@ public class PersonController implements IPersonController {
                 }
             }
         }
-        ListOfPersonAndTheirNumberStation listOfPersonAndTheirNumberStation = new ListOfPersonAndTheirNumberStation(personWithLastNameAndPhoneDtoList, serviceAPI.getStationNumber(address));
+        ListOfPersonAndTheirNumberStation listOfPersonAndTheirNumberStation = new ListOfPersonAndTheirNumberStation(personWithLastNameAndPhoneDtoList, APIService.getStationNumber(address));
         logger.info("Response of Query N°" + requestNumber + ": " + listOfPersonAndTheirNumberStation);
         return listOfPersonAndTheirNumberStation;
     }
@@ -99,9 +99,9 @@ public class PersonController implements IPersonController {
     public PersonWithAddressAgeEmail getPersonWithAddressAgeEMail(String firstName, String lastName) {
         int requestNumber = requestCounter.addRequest();
         logger.info("Query N°" + requestNumber + " : " + "http://localhost:8080/personInfo?firstName=" + firstName + "&&" + lastName);
-        if (serviceAPI.getPerson(firstName + lastName) != null) {
-            Person person = serviceAPI.getPerson(firstName + lastName);
-            for (MedicalRecord medicalRecord : serviceAPI.getMedicalRecordList()) {
+        if (APIService.getPerson(firstName + lastName) != null) {
+            Person person = APIService.getPerson(firstName + lastName);
+            for (MedicalRecord medicalRecord : APIService.getMedicalRecordList()) {
                 if (medicalRecord.getFirstNameAndLastName().equals(person.getFirstName() + person.getLastName())) {
                     PersonWithAddressAgeEmail personWithAddressAgeEMail = new PersonWithAddressAgeEmail(person.getLastName(), person.getAddress(), medicalRecord.getAge(), person.getEmail());
                     logger.info("Response of Query N°" + requestNumber + ": " + personWithAddressAgeEMail);
@@ -117,8 +117,8 @@ public class PersonController implements IPersonController {
     @PostMapping("/person")
     public ResponseEntity<PersonDto> createPerson(@RequestBody PDto pDto) {
         int requestNumber = requestCounter.addRequest();
-        logger.info("Query N°" + requestNumber + " : " + "POST http://localhost:8080/person" + pDto);
-        if (serviceAPI.savePerson(pDto)) {
+        logger.info("Query N°" + requestNumber + " : " + "POST http://localhost:8080/person " + pDto);
+        if (APIService.savePerson(pDto)) {
             URI location = ServletUriComponentsBuilder
                     .fromCurrentRequest()
                     .path("/{id}")
@@ -134,8 +134,8 @@ public class PersonController implements IPersonController {
     @PutMapping("/person")
     public PDto updatePerson(@RequestBody PDto pDto) {
         int requestNumber = requestCounter.addRequest();
-        logger.info("Query N°" + requestNumber + " : " + "PUT http://localhost:8080/person" + pDto);
-        if (serviceAPI.updatePerson(pDto)) {
+        logger.info("Query N°" + requestNumber + " : " + "PUT http://localhost:8080/person " + pDto);
+        if (APIService.updatePerson(pDto)) {
             logger.info("Response of Query N°" + requestNumber + ": " + pDto);
             return pDto;
         }
@@ -147,8 +147,8 @@ public class PersonController implements IPersonController {
     @DeleteMapping("/person")
     public PDto removePerson(@RequestBody PDto pDto) {
         int requestNumber = requestCounter.addRequest();
-        logger.info("Query N°" + requestNumber + " : " + "DELETE http://localhost:8080/person" + pDto);
-        if (serviceAPI.removePerson(pDto)) {
+        logger.info("Query N°" + requestNumber + " : " + "DELETE http://localhost:8080/person " + pDto);
+        if (APIService.removePerson(pDto)) {
             logger.info("Response of Query N°" + requestNumber + ": " + pDto);
             return pDto;
         }

@@ -19,7 +19,7 @@ public class ServiceTest {
     private final List<String> addressList = new ArrayList<>();
 
     @Autowired
-    private ServiceAPI serviceAPI;
+    private APIService APIService;
 
     @BeforeEach
     public void settings() {
@@ -35,7 +35,7 @@ public class ServiceTest {
     void getPersonToShareList() {
         //Act
         List<PersonDtoWithAddressAndPhone> personDtoWithAddressAndPhoneList = new ArrayList<>();
-        for (Person person : serviceAPI.getPersonList()){
+        for (Person person : APIService.getPersonList()){
             for (String address:addressList){
                 if (person.getAddress().equals(address)){
                     PersonDtoWithAddressAndPhone personDtoWithAddressAndPhone = new PersonDtoWithAddressAndPhone();
@@ -54,7 +54,7 @@ public class ServiceTest {
     @Test
     void getAddressTest() {
         //Act
-        List<String> address = serviceAPI.getAddressList(3);
+        List<String> address = APIService.getAddressList(3);
         //Assert
         assertEquals(address, addressList);
     }
@@ -62,6 +62,6 @@ public class ServiceTest {
     @Test
     void getMedicalRecordList() {
         //Assert
-        assertNotNull(serviceAPI.getMedicalRecordList());
+        assertNotNull(APIService.getMedicalRecordList());
     }
 }

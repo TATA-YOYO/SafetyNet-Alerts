@@ -6,7 +6,7 @@ import com.safetynet.alerts.controller.dto.PersonDtoWithAddressAndPhone;
 import com.safetynet.alerts.controller.dto.PersonWithLastNameAndPhoneDto;
 import com.safetynet.alerts.models.MedicalRecord;
 import com.safetynet.alerts.models.Person;
-import com.safetynet.alerts.services.IServiceAPI;
+import com.safetynet.alerts.services.IAPIService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ public class FireStationController {
     private RequestCounter requestCounter;
 
     @Autowired
-    private IServiceAPI serviceAPI;
+    private IAPIService APIService;
 
     @Autowired
     private IPersonController personController;
@@ -40,8 +40,8 @@ public class FireStationController {
         logger.info("Query N°" + requestNumber + " : " + "http://localhost:8080/firestation?stationNumber=" + stationNumber);
         if (stationNumber != null) {
             List<PersonDtoWithAddressAndPhone> personDtoWithAddressAndPhoneList = new ArrayList<>();
-            for (Person person : serviceAPI.getPersonList()) {
-                for (String address : serviceAPI.getAddressList(stationNumber)) {
+            for (Person person : APIService.getPersonList()) {
+                for (String address : APIService.getAddressList(stationNumber)) {
                     if (person.getAddress().equals(address)) {
                         PersonDtoWithAddressAndPhone personDtoWithAddressAndPhone = new PersonDtoWithAddressAndPhone();
                         personDtoWithAddressAndPhone.setFirstName(person.getFirstName());
@@ -55,7 +55,7 @@ public class FireStationController {
             int nbAdult = 0;
             int nbChild = 0;
             for (PersonDtoWithAddressAndPhone personWithAddressAndPhoneDto : personDtoWithAddressAndPhoneList) {
-                for (MedicalRecord medicalRecord : serviceAPI.getMedicalRecordList()) {
+                for (MedicalRecord medicalRecord : APIService.getMedicalRecordList()) {
                     if (medicalRecord.getFirstName().equals(personWithAddressAndPhoneDto.getFirstName()) && medicalRecord.getLastName().equals(personWithAddressAndPhoneDto.getLastName())) {
                         if (medicalRecord.getAge() >= 18) {
                             nbAdult++;
@@ -81,8 +81,8 @@ public class FireStationController {
         if (stationNumber != null) {
             List<String> phoneList = new ArrayList<>();
             List<PersonDtoWithAddressAndPhone> personDtoWithAddressAndPhoneList = new ArrayList<>();
-            for (Person person : serviceAPI.getPersonList()) {
-                for (String address : serviceAPI.getAddressList(stationNumber)) {
+            for (Person person : APIService.getPersonList()) {
+                for (String address : APIService.getAddressList(stationNumber)) {
                     if (person.getAddress().equals(address)) {
                         PersonDtoWithAddressAndPhone personDtoWithAddressAndPhone = new PersonDtoWithAddressAndPhone();
                         personDtoWithAddressAndPhone.setFirstName(person.getFirstName());
@@ -118,12 +118,12 @@ public class FireStationController {
     }
 
     @GetMapping("/flood/stations")
-    public Map<String, List<PersonWithLastNameAndPhoneDto>> getStringListOfPersonWithLastNameAndPhoneDtoMap(@RequestParam List<Integer> stationNumbersList) {
+    public Map<String, List<PersonWithLastNameAndPhoneDto>> getStringListOfPersonWithLastNameAndPhoneDtoMap(List<Integer> stationNumbersList) {
         int requestNumber = requestCounter.addRequest();
         logger.info("Query N°" + requestNumber + " : " + "http://localhost:8080/phoneAlert?firestation=" + stationNumbersList);
         Map<String, List<PersonWithLastNameAndPhoneDto>> listOfPersonWithLastNameAndPhoneDtoMap = new HashMap<>();
         for (int stationNumber : stationNumbersList) {
-            String address = serviceAPI.getAddressList(stationNumber).get(0);
+            String address = APIService.getAddressList(stationNumber).get(0);
             List<PersonWithLastNameAndPhoneDto> personWithLastNameAndPhoneDtoList = personController.getListOfPersonAndTheirNumberStation(address).getPersonWithLastNameAndPhoneDtoList();
             listOfPersonWithLastNameAndPhoneDtoMap.put(address, personWithLastNameAndPhoneDtoList);
         }
@@ -135,7 +135,7 @@ public class FireStationController {
     public List<String> getEmailList(String city) {
         int requestNumber = requestCounter.addRequest();
         logger.info("Query N°" + requestNumber + " : " + "  http://localhost:8080/communityEmail?city=" + city);
-        List<String> emailList = serviceAPI.getEmailList(city);
+        List<String> emailList = APIService.getEmailList(city);
         logger.info("Response of Query N°" + requestNumber + ": " + emailList);
         return emailList;
     }
@@ -143,8 +143,8 @@ public class FireStationController {
     @PostMapping("/firestation")
     public ResponseEntity<List<FireStationDto>> createFireStation(@RequestBody List<FireStationDto> fireStationDtoList) {
         int requestNumber = requestCounter.addRequest();
-        logger.info("Query N°" + requestNumber + " : " + "POST http://localhost:8080/firestation" + fireStationDtoList);
-        if (serviceAPI.saveListOfFireStation(fireStationDtoList)) {
+        logger.info("Query N°" + requestNumber + " : " + "POST http://localhost:8080/firestation " + fireStationDtoList);
+        if (APIService.saveListOfFireStation(fireStationDtoList)) {
 
             URI location = ServletUriComponentsBuilder
                     .fromCurrentRequest()
@@ -161,8 +161,8 @@ public class FireStationController {
     @PutMapping("/firestation")
     public FireStationDto updateFireStation(@RequestBody FireStationDto fireStationDto) {
         int requestNumber = requestCounter.addRequest();
-        logger.info("Query N°" + requestNumber + " : " + "PUT http://localhost:8080/firestation" + fireStationDto);
-        if (serviceAPI.updateFireStation(fireStationDto)) {
+        logger.info("Query N°" + requestNumber + " : " + "PUT http://localhost:8080/firestation " + fireStationDto);
+        if (APIService.updateFireStation(fireStationDto)) {
             logger.info("Response of Query N°" + requestNumber + ": " + fireStationDto);
             return fireStationDto;
         }
@@ -174,8 +174,8 @@ public class FireStationController {
     @DeleteMapping("/firestation")
     public FireStationDto removeFireStation(@RequestBody FireStationDto fireStationDto) {
         int requestNumber = requestCounter.addRequest();
-        logger.info("Query N°" + requestNumber + " : " + "DELETE http://localhost:8080/firestation" + fireStationDto);
-        if (serviceAPI.removeFireStation(fireStationDto.getStation())) {
+        logger.info("Query N°" + requestNumber + " : " + "DELETE http://localhost:8080/firestation " + fireStationDto);
+        if (APIService.removeFireStation(fireStationDto.getStation())) {
             logger.info("Response of Query N°" + requestNumber + ": " + fireStationDto);
             return fireStationDto;
         }
